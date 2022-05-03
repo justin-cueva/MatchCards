@@ -11,9 +11,14 @@ const Header = () => {
 
   return (
     <Fragment>
-      {menuIsOpen && <MenuModal setMenuIsOpen={setMenuIsOpen} />}
+      {menuIsOpen && (
+        <MenuModal setMenuIsOpen={setMenuIsOpen} menuIsOpen={menuIsOpen} />
+      )}
       <nav className="header">
-        <span className="icon--burger" onClick={() => setMenuIsOpen(true)}>
+        <span
+          className={`icon--burger ${menuIsOpen && "opacity-0"}`}
+          onClick={() => setMenuIsOpen(true)}
+        >
           <GiHamburgerMenu />
         </span>
         <button className="btn--auth">Log out</button>
