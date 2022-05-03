@@ -1,0 +1,21 @@
+.header {
+  padding: 0 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon--burger {
+  font-size: 3.6rem;
+  color: #03045e;
+  display: flex;
+}
+
+.btn--auth {
+  background-color: transparent;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #03045e;
+  font-size: 1.8rem;
+}
