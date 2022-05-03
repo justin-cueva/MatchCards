@@ -1,8 +1,15 @@
 import { Fragment } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 
 import "../styles/menuModal.css";
+
+const links = [
+  { name: "Home", to: "/" },
+  { name: "Create", to: "/create" },
+  { name: "My Decks", to: "/myDecks" },
+];
 
 type Props = {
   setMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +17,8 @@ type Props = {
 };
 
 const MenuModal = ({ setMenuIsOpen, menuIsOpen }: Props) => {
+  const navigate = useNavigate();
+
   const portal = document.querySelector("#portal");
   if (!portal) return null;
 
@@ -26,9 +35,20 @@ const MenuModal = ({ setMenuIsOpen, menuIsOpen }: Props) => {
         <ImCross />
       </span>
       <ul className="modal modal--menu">
-        <li className="menu-modal__link">Home</li>
-        <li className="menu-modal__link">Create</li>
-        <li className="menu-modal__link">My Decks</li>
+        {links.map((link, index) => {
+          return (
+            <li
+              key={index}
+              className="menu-modal__link"
+              onClick={() => {
+                navigate(link.to);
+                setMenuIsOpen(false);
+              }}
+            >
+              {link.name}
+            </li>
+          );
+        })}
         <li className="menu-modal__link">Auth</li>
       </ul>
     </Fragment>,

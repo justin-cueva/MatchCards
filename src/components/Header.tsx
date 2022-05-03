@@ -7,8 +7,6 @@ import "../styles/header.css";
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  useEffect(() => console.log(menuIsOpen), [menuIsOpen]);
-
   return (
     <Fragment>
       {menuIsOpen && (
