@@ -7,7 +7,7 @@
 
 .icon--burger {
   font-size: 3.6rem;
-  color: #03045e;
+  color: #caf0f8;
   display: flex;
 }
 
@@ -16,6 +16,6 @@
   border: none;
   padding: 1rem;
   border-radius: 8px;
-  color: #03045e;
+  color: #caf0f8;
   font-size: 1.8rem;
 }
