@@ -21,7 +21,19 @@ html {
 body {
   font-family: sans-serif;
 }
+body {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 
 ul {
   list-style-type: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }

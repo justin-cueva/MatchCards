@@ -29,7 +29,7 @@ const MenuModal = ({ setMenuIsOpen, menuIsOpen }: Props) => {
         className="overlay overlay--menu-modal"
       />
       <span
-        className="icon--close-menu-modal"
+        className="icon icon--close-menu-modal"
         onClick={() => setMenuIsOpen(false)}
       >
         <ImCross />

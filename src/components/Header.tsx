@@ -14,7 +14,7 @@ const Header = () => {
       )}
       <nav className="header">
         <span
-          className={`icon--burger ${menuIsOpen && "opacity-0"}`}
+          className={`icon icon--burger ${menuIsOpen && "opacity-0"}`}
           onClick={() => setMenuIsOpen(true)}
         >
           <GiHamburgerMenu />

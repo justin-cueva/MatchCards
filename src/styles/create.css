@@ -1,5 +1,31 @@
 .create-page {
-  margin: 1rem;
+  margin: 4rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-create--top {
+  /*  */
+  padding: 1rem 3.2rem;
+}
+
+.btn-create--bottom {
+  align-self: end;
+  margin-top: 1rem;
+  padding: 2rem 6.4rem;
+}
+
+.btn--create {
+  border-radius: 4px;
+  font-size: 2rem;
+  color: #343a40;
+  background-color: #ffba08;
+  transition: all 200ms ease;
+}
+
+.btn--create:hover,
+.btn--create:active {
+  background-color: #ffc839;
 }
 
 .add-card {
@@ -46,7 +72,6 @@
 
 .create-page h2 {
   font-size: 2.4rem;
-  margin-bottom: 3rem;
 }
 
 .card {
