@@ -1,6 +1,7 @@
 .menu-modal__link {
   color: #fff;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 .modal--menu {
