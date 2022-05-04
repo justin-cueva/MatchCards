@@ -16,6 +16,12 @@ const Create = () => {
         <h2>Create a new deck</h2>
         <button className="btn-create--top btn--create">Create</button>
       </div>
+
+      <input
+        placeholder={`Enter a title, like "Biology"`}
+        className="create__title"
+      />
+
       {[1, 2, 3].map((index) => (
         <div key={index} className="card">
           <div className="toolbar">

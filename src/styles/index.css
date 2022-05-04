@@ -29,6 +29,10 @@ body::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
+input:focus {
+  outline: none;
+}
+
 ul {
   list-style-type: none;
 }
