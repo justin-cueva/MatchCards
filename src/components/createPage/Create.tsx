@@ -9,10 +9,6 @@ import "../../styles/create.css";
 const Create = () => {
   const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
 
-  useEffect(() => {
-    console.log(newDeckState);
-  }, [newDeckState]);
-
   const createHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitting form");
@@ -50,35 +46,40 @@ const Create = () => {
                 </span>
               </div>
             </div>
-            <div className="field">
-              {/* on change, change the state */}
-              <input
-                onChange={(e) =>
-                  dispatch({
-                    type: "CHANGE_TERM",
-                    payload: { term: e.target.value, cardNumber: card.number },
-                  })
-                }
-                value={card.term}
-                className="card__input"
-              />
-              <label className="card__label">TERM</label>
-            </div>
-            <div className="field">
-              <input
-                onChange={(e) =>
-                  dispatch({
-                    type: "CHANGE_DEFINITION",
-                    payload: {
-                      definition: e.target.value,
-                      cardNumber: card.number,
-                    },
-                  })
-                }
-                value={card.definition}
-                className="card__input"
-              />
-              <label className="card__label">DEFINITION</label>
+            <div className="fields">
+              <div className="field">
+                {/* on change, change the state */}
+                <input
+                  onChange={(e) =>
+                    dispatch({
+                      type: "CHANGE_TERM",
+                      payload: {
+                        term: e.target.value,
+                        cardNumber: card.number,
+                      },
+                    })
+                  }
+                  value={card.term}
+                  className="card__input"
+                />
+                <label className="card__label">TERM</label>
+              </div>
+              <div className="field">
+                <input
+                  onChange={(e) =>
+                    dispatch({
+                      type: "CHANGE_DEFINITION",
+                      payload: {
+                        definition: e.target.value,
+                        cardNumber: card.number,
+                      },
+                    })
+                  }
+                  value={card.definition}
+                  className="card__input"
+                />
+                <label className="card__label">DEFINITION</label>
+              </div>
             </div>
           </div>
         );
