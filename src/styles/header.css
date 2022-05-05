@@ -13,6 +13,10 @@
   display: flex;
 }
 
+.link-list {
+  display: none;
+}
+
 .btn--auth {
   background-color: transparent;
   border: none;
@@ -26,6 +30,23 @@
 @media (min-width: 80em) {
   .header {
     height: 7.2rem;
+    /* width: 90%; */
     padding: 0 3.2rem;
+  }
+  .icon--burger {
+    display: none;
+  }
+
+  .link-list {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .link-list,
+  .btn--auth {
+    /* font-size: 100%; */
+    font-size: 2rem;
   }
 }
