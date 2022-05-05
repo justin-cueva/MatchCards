@@ -3,12 +3,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 180rem;
+  margin: 0 auto;
 }
 
 .icon--burger {
   font-size: 3.6rem;
   color: #343a40;
   display: flex;
+}
+
+.link-list {
+  display: none;
 }
 
 .btn--auth {
@@ -19,4 +25,28 @@
   color: #343a40;
   font-size: 1.8rem;
   font-weight: 600;
+}
+
+@media (min-width: 80em) {
+  .header {
+    height: 7.2rem;
+    /* width: 90%; */
+    padding: 0 3.2rem;
+  }
+  .icon--burger {
+    display: none;
+  }
+
+  .link-list {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .link-list,
+  .btn--auth {
+    /* font-size: 100%; */
+    font-size: 2rem;
+  }
 }

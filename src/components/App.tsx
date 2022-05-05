@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./Header";
-import Home from "./home/Home";
-import Create from "./create/Create";
-import MyDecks from "./myDecks/MyDecks";
+import Home from "./homePage/Home";
+import Create from "./createPage/Create";
+import MyDecks from "./myDecksPage/MyDecks";
 import "../styles/app.css";
 
 const App = () => {

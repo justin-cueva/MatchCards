@@ -1,7 +1,10 @@
 .create-page {
-  margin: 4rem 1rem 1rem 1rem;
+  /* margin: 4rem 1rem 1rem 1rem; */
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
+  max-width: 120rem;
+  margin: 4rem auto 1rem auto;
 }
 
 .create__title {
@@ -90,6 +93,7 @@
 
 .card {
   display: flex;
+  /* height: 19.2rem; */
   flex-direction: column;
   gap: 2rem;
   padding: 1rem 2.4rem 2.4rem 2.4rem;
@@ -117,4 +121,15 @@
 
 .card .field input:focus.card__input {
   border-bottom: 3px solid #ffba08;
+}
+
+/* 928px */
+@media (min-width: 58em) {
+  .fields {
+    display: flex;
+    gap: 3.2rem;
+  }
+  .field {
+    width: 50%;
+  }
 }
