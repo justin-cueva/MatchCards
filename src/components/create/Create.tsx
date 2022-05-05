@@ -1,10 +1,16 @@
+import { useReducer, useEffect } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { MdDragHandle } from "react-icons/md";
 import { HiPlus } from "react-icons/hi";
 
+import { newDeckReducer, newDeckInitState } from "./newDeckReducer";
 import "../../styles/create.css";
 
 const Create = () => {
+  const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
+
+  useEffect(() => console.log(newDeckState), [newDeckState]);
+
   const createHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitting form");
@@ -21,30 +27,34 @@ const Create = () => {
         placeholder={`Enter a title, like "Biology"`}
         className="create__title"
       />
-
-      {[1, 2, 3].map((index) => (
-        <div key={index} className="card">
-          <div className="toolbar">
-            <label className="card-number">{index}</label>
-            <div className="card-icons">
-              <span className="icon icon--drag-handle">
-                <MdDragHandle />
-              </span>
-              <span className="icon icon--trash">
-                <BsFillTrashFill />
-              </span>
+      {newDeckState.cards.map((card, index) => {
+        return (
+          <div key={card.number} className="card">
+            <div className="toolbar">
+              <label className="card-number">{card.number}</label>
+              <div className="card-icons">
+                <span className="icon icon--drag-handle">
+                  <MdDragHandle />
+                </span>
+                <span className="icon icon--trash">
+                  <BsFillTrashFill />
+                </span>
+              </div>
+            </div>
+            <div className="field">
+              {/* on change, change the state */}
+              <input value={card.term} className="card__input" />
+              <label className="card__label">TERM</label>
+            </div>
+            <div className="field">
+              {/* on change, change the state */}
+              <input value={card.definition} className="card__input" />
+              <label className="card__label">DEFINITION</label>
             </div>
           </div>
-          <div className="field">
-            <input className="card__input" />
-            <label className="card__label">TERM</label>
-          </div>
-          <div className="field">
-            <input className="card__input" />
-            <label className="card__label">DEFINITION</label>
-          </div>
-        </div>
-      ))}
+        );
+      })}
+
       <button type="button" className="add-card">
         <span className="border-bottom">
           <span className="icon icon--add">
