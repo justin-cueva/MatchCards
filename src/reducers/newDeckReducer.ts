@@ -1,4 +1,4 @@
-type ActionTypes =
+export type ActionTypes =
   | {
       type: "CHANGE_TITLE";
       payload: string;
@@ -20,7 +20,7 @@ export const newDeckInitState = {
   ],
 };
 
-type Card = {
+export type Card = {
   term: string;
   definition: string;
   number: number;
