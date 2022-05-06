@@ -4,7 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import MenuModal from "./MenuModal";
 import { links } from "./MenuModal";
-import "../styles/header.css";
+import "../../styles/header.css";
 
 const Header = () => {
   const navigate = useNavigate();

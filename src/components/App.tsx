@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./Header";
+import Header from "./reusables/Header";
 import Home from "./homePage/Home";
-import Create from "./createPage/Create";
+import Create from "./createPage/CreatePage";
 import MyDecks from "./myDecksPage/MyDecks";
 import "../styles/app.css";
 
