@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "../../styles/authPage.css";
+
 const AuthPage = () => {
   const [formState, setFormState] = useState<string>("LOGIN");
   const [error, setError] = useState(null);
@@ -16,7 +18,9 @@ const AuthPage = () => {
           {error && <span className="error">{error}</span>}
           <div className="auth__fields">
             <div className="auth__field">
-              <label htmlFor="email">Your Email</label>
+              <label className="email-label" htmlFor="email">
+                Your Email
+              </label>
               <input
                 value={email}
                 autoComplete="off"
@@ -26,7 +30,9 @@ const AuthPage = () => {
               />
             </div>
             <div className="auth__field">
-              <label htmlFor="password">Your Password</label>
+              <label className="password-label" htmlFor="password">
+                Your Password
+              </label>
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -46,10 +52,9 @@ const AuthPage = () => {
             <button
               onClick={() => {
                 console.log("clicked");
-                // clearFields();
-                // setFormState((prev) => {
-                //   return prev === "LOGIN" ? "CREATE" : "LOGIN";
-                // });
+                setFormState((prev) => {
+                  return prev === "LOGIN" ? "CREATE" : "LOGIN";
+                });
               }}
               type="button"
               className={`btn--change-form-state `}
