@@ -1,24 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import ReactLoading from "react-loading";
 
 import { auth } from "../../firebase/firebase-config";
 import "../../styles/authPage.css";
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState<string>("CREATE");
-  const [error, setError] = useState(null);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<null | string>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => console.log(isLoading), [isLoading]);
+
+  const lComponent = (
+    <ReactLoading
+      className="loading-cylon"
+      color={"#ffba08"}
+      type={"cylon"}
+      width={"20%"}
+    />
+  );
 
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       console.log(user.user.uid);
-    } catch (err) {
-      console.error(err);
+      navigate("/");
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
@@ -26,29 +42,26 @@ const AuthPage = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user.user.uid);
-    } catch (err) {
-      console.error(err);
+      navigate("/");
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
-  const formSubmitHandler = () => {
-    if (formState === "LOGIN") {
-      login();
-      console.log("trying to LOGIN");
-      console.log(email);
-      console.log(password);
-    }
-    if (formState === "CREATE") {
-      register();
-      console.log("trying to SIGN_UP");
-      console.log(email);
-      console.log(password);
-    }
+  const formSubmitHandler = async () => {
+    setError(null);
+    setIsLoading(true);
+
+    if (formState === "LOGIN") await login();
+    if (formState === "CREATE") await register();
+
+    setIsLoading(false);
   };
 
   return (
     <div className="container">
       <div className={`auth-container `}>
+        {isLoading && lComponent}
         <form
           className="form--auth"
           onSubmit={(e) => {
@@ -59,6 +72,7 @@ const AuthPage = () => {
           <h2 className={`auth__heading `}>
             {formState === "LOGIN" ? "Login" : "Sign Up"}
           </h2>
+
           {error && <span className="error">{error}</span>}
           <div className="auth__fields">
             <div className="auth__field">

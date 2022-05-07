@@ -4,7 +4,23 @@
   margin: 10vh auto 0 auto;
 }
 
+.loading-cylon {
+  margin: 0 auto;
+  position: absolute;
+  top: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.error {
+  color: #e00000;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 .auth-container {
+  position: relative;
   gap: 2.4rem;
   /* width: 100%; */
   padding: 2rem;
