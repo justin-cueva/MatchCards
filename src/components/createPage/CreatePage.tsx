@@ -15,6 +15,13 @@ const CreatePage = () => {
   const { authState } = useContext(Context);
   const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
 
+  const numberOfCards = newDeckState.cards.length;
+
+  useEffect(() => {
+    console.log(numberOfCards);
+    console.log(numberOfCards < 10);
+  }, [numberOfCards]);
+
   const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -52,6 +59,7 @@ const CreatePage = () => {
       {newDeckState.cards.map((card, index) => {
         return (
           <SingleCard
+            numberOfCards={numberOfCards}
             key={index}
             card={card}
             index={index}
@@ -59,7 +67,7 @@ const CreatePage = () => {
           />
         );
       })}
-      <AddCardBtn dispatch={dispatch} />
+      {numberOfCards < 10 && <AddCardBtn dispatch={dispatch} />}
       <button className="btn-create--bottom  btn--create">Create</button>
     </form>
   );

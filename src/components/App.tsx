@@ -23,7 +23,7 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => console.log(authState), [authState]);
+  // useEffect(() => console.log(authState), [authState]);
 
   return (
     <AuthContext.Provider

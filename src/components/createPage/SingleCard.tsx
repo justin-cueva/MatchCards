@@ -9,25 +9,28 @@ type Props = {
   card: Card;
   index: number;
   dispatch: React.Dispatch<ActionTypes>;
+  numberOfCards: number;
 };
 
-const SingleCard = ({ card, index, dispatch }: Props) => {
+const SingleCard = ({ card, index, dispatch, numberOfCards }: Props) => {
   return (
     <div key={index} className="card">
       <div className="toolbar">
         <label className="card-number">{card.number}</label>
         <div className="card-icons">
-          <span className="icon icon--drag-handle">
+          <span className="icon icon--drag-handle invisible">
             <MdDragHandle />
           </span>
-          <span
-            className="icon icon--trash"
-            onClick={() =>
-              dispatch({ type: "DELETE_CARD", payload: card.number })
-            }
-          >
-            <BsFillTrashFill />
-          </span>
+          {numberOfCards >= 3 && (
+            <span
+              className="icon icon--trash"
+              onClick={() =>
+                dispatch({ type: "DELETE_CARD", payload: card.number })
+              }
+            >
+              <BsFillTrashFill />
+            </span>
+          )}
         </div>
       </div>
       <div className="fields">
