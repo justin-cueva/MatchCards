@@ -1,7 +1,9 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import SingleCard from "./SingleCard";
 import AddCardBtn from "./AddCardBtn";
+import { AuthContext as Context } from "../App";
 import {
   newDeckReducer,
   newDeckInitState,
@@ -9,11 +11,29 @@ import {
 import "../../styles/create.css";
 
 const CreatePage = () => {
+  const navigate = useNavigate();
+  const { authState } = useContext(Context);
   const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
 
-  const createHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitting form");
+    try {
+      // if we dont have the inputs filled out then throw an error
+      // if we are not logged in then thow an error
+      if (!authState.isLoggedIn)
+        throw new Error("Log in or create an account to build a deck");
+
+      // if ()
+      console.log(newDeckState);
+      await fetch(
+        `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${authState.userId}.json`,
+        { method: "POST", body: JSON.stringify(newDeckState) }
+      );
+      dispatch({ type: "CREATE_DECK" });
+      navigate("/myDecks");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
