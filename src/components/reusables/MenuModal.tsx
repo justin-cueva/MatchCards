@@ -9,6 +9,7 @@ export const links = [
   { name: "Home", to: "/" },
   { name: "Create", to: "/create" },
   { name: "My Decks", to: "/myDecks" },
+  { name: "Auth", to: "/auth" },
 ];
 
 type Props = {
@@ -49,7 +50,6 @@ const MenuModal = ({ setMenuIsOpen, menuIsOpen }: Props) => {
             </li>
           );
         })}
-        <li className="menu-modal__link">Auth</li>
       </ul>
     </Fragment>,
     portal

@@ -30,7 +30,14 @@ const CreatePage = () => {
         className="create__title"
       />
       {newDeckState.cards.map((card, index) => {
-        return <SingleCard card={card} index={index} dispatch={dispatch} />;
+        return (
+          <SingleCard
+            key={index}
+            card={card}
+            index={index}
+            dispatch={dispatch}
+          />
+        );
       })}
       <AddCardBtn dispatch={dispatch} />
       <button className="btn-create--bottom  btn--create">Create</button>
