@@ -1,12 +1,14 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+import { AuthContext as context } from "../App";
 import MenuModal from "./MenuModal";
 import { links } from "./MenuModal";
 import "../../styles/header.css";
 
 const Header = () => {
+  const authContext = useContext(context);
   const navigate = useNavigate();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
@@ -36,7 +38,12 @@ const Header = () => {
             );
           })}
         </ul>
-        <button className="btn--auth">Log out</button>
+        <button
+          className="btn--auth"
+          onClick={() => console.log(authContext.authState)}
+        >
+          Log out
+        </button>
       </nav>
     </Fragment>
   );

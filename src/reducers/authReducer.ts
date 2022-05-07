@@ -13,7 +13,7 @@ type DefaultStateType = {
   myDecks: Deck[];
 };
 
-const defaultState = {
+export const defaultState = {
   isLoggedIn: false,
   userId: "",
   myDecks: [],

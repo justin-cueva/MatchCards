@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -6,18 +6,18 @@ import {
 } from "firebase/auth";
 import ReactLoading from "react-loading";
 
+import { AuthContext as context } from "../App";
 import { auth } from "../../firebase/firebase-config";
 import "../../styles/authPage.css";
 
 const AuthPage = () => {
+  const { authState, authDispatch } = useContext(context);
   const navigate = useNavigate();
   const [formState, setFormState] = useState<string>("CREATE");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => console.log(isLoading), [isLoading]);
 
   const lComponent = (
     <ReactLoading
@@ -31,7 +31,13 @@ const AuthPage = () => {
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user.user.uid);
+      authDispatch({
+        type: "LOGIN",
+        payload: {
+          userId: user.user.uid,
+          decks: [],
+        },
+      });
       navigate("/");
     } catch (err: any) {
       setError(err.message);
@@ -41,7 +47,17 @@ const AuthPage = () => {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user.user.uid);
+      // console.log(user.user.uid);
+      authDispatch({
+        type: "LOGIN",
+        payload: {
+          userId: user.user.uid,
+          decks: [
+            { card: "asdfa", id: 1 },
+            { card: "somecard", id: 2 },
+          ],
+        },
+      });
       navigate("/");
     } catch (err: any) {
       setError(err.message);
