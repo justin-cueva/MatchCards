@@ -17,6 +17,10 @@
   display: none;
 }
 
+.link-list li {
+  cursor: pointer;
+}
+
 .btn--auth {
   background-color: transparent;
   border: none;
