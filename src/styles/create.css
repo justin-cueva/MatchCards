@@ -7,6 +7,22 @@
   margin: 4rem auto 1rem auto;
 }
 
+.error--new-deck {
+  /* color: #ff0000; */
+  /* background-color: #fee6e6; */
+  color: #d80000;
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: #fef0f0;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 62rem;
+  margin: 1rem auto;
+  border: 2px solid #d80000;
+  border-radius: 8px;
+}
+
 .create__title {
   background-color: transparent;
   border: none;

@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useContext } from "react";
+import { useReducer, useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SingleCard from "./SingleCard";
@@ -14,6 +14,7 @@ const CreatePage = () => {
   const navigate = useNavigate();
   const { authState } = useContext(Context);
   const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
+  const [error, setError] = useState<null | string>(null);
 
   const numberOfCards = newDeckState.cards.length;
 
@@ -24,13 +25,20 @@ const CreatePage = () => {
 
   const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
+
     try {
-      // if we dont have the inputs filled out then throw an error
-      // if we are not logged in then thow an error
       if (!authState.isLoggedIn)
         throw new Error("Log in or create an account to build a deck");
 
-      // if ()
+      if (newDeckState.title === "") throw new Error("Give your deck a title");
+
+      const notFinished = newDeckState.cards.some((card) => {
+        if (card.term === "" || card.definition === "") return true;
+      });
+      if (notFinished)
+        throw new Error("Add a term and definition to all your cards");
+
       console.log(newDeckState);
       await fetch(
         `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${authState.userId}.json`,
@@ -38,8 +46,9 @@ const CreatePage = () => {
       );
       dispatch({ type: "CREATE_DECK" });
       navigate("/myDecks");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setError(`${err.message}`);
     }
   };
 
@@ -56,6 +65,7 @@ const CreatePage = () => {
         placeholder={`Enter a title, like "Biology"`}
         className="create__title"
       />
+      {error && <p className="error--new-deck">{error}</p>}
       {newDeckState.cards.map((card, index) => {
         return (
           <SingleCard
