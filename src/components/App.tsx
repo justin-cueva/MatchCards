@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 import authReducer, {
   defaultState as authDefaultState,
@@ -15,6 +15,15 @@ export const AuthContext = createContext<any>(null);
 
 const App = () => {
   const [authState, authDispatch] = useReducer(authReducer, authDefaultState);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      authDispatch({ type: "LOGIN", payload: { userId: userId, decks: [] } });
+    }
+  }, []);
+
+  useEffect(() => console.log(authState), [authState]);
 
   return (
     <AuthContext.Provider

@@ -7,7 +7,7 @@
 .loading-cylon {
   margin: 0 auto;
   position: absolute;
-  top: -10rem;
+  top: -9rem;
   left: 50%;
   transform: translateX(-50%);
 }

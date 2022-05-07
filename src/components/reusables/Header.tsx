@@ -40,7 +40,11 @@ const Header = () => {
         </ul>
         <button
           className="btn--auth"
-          onClick={() => console.log(authContext.authState)}
+          onClick={() => {
+            // console.log(authContext.authState);
+            localStorage.removeItem("userId");
+            authContext.authDispatch({ type: "LOGOUT" });
+          }}
         >
           Log out
         </button>

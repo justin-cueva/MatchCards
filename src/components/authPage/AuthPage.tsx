@@ -24,13 +24,14 @@ const AuthPage = () => {
       className="loading-cylon"
       color={"#ffba08"}
       type={"cylon"}
-      width={"20%"}
+      width={"10rem"}
     />
   );
 
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("userId", `${user.user.uid}`);
       authDispatch({
         type: "LOGIN",
         payload: {
@@ -47,15 +48,12 @@ const AuthPage = () => {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      // console.log(user.user.uid);
+      localStorage.setItem("userId", `${user.user.uid}`);
       authDispatch({
         type: "LOGIN",
         payload: {
           userId: user.user.uid,
-          decks: [
-            { card: "asdfa", id: 1 },
-            { card: "somecard", id: 2 },
-          ],
+          decks: [],
         },
       });
       navigate("/");
