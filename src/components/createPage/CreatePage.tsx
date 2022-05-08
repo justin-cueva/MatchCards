@@ -18,11 +18,6 @@ const CreatePage = () => {
 
   const numberOfCards = newDeckState.cards.length;
 
-  useEffect(() => {
-    console.log(numberOfCards);
-    console.log(numberOfCards < 10);
-  }, [numberOfCards]);
-
   const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);

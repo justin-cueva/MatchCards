@@ -1,6 +1,7 @@
 type AuthActionTypes =
-  | { type: "LOGIN"; payload: { userId: string; decks: [] } }
-  | { type: "LOGOUT" };
+  | { type: "LOGIN"; payload: { userId: string } }
+  | { type: "LOGOUT" }
+  | { type: "GOT_DECKS"; payload: any[] };
 
 type Deck = {
   card: string;
@@ -24,9 +25,11 @@ export default (
   action: AuthActionTypes
 ) => {
   switch (action.type) {
+    case "GOT_DECKS":
+      return { ...state, myDecks: action.payload };
     case "LOGIN":
       return {
-        myDecks: action.payload.decks,
+        ...state,
         isLoggedIn: true,
         userId: action.payload.userId,
       };
