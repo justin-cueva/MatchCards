@@ -48,7 +48,7 @@ const CreatePage = () => {
   };
 
   return (
-    <form onSubmit={(e) => createHandler(e)} className="create-page">
+    <form onSubmit={(e) => createHandler(e)} className="page">
       <div className="flex justify-between items-center mb-3">
         <h2>Create a new deck</h2>
         <button className="btn-create--top btn--create">Create</button>

@@ -1,3 +1,11 @@
+.page {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 120rem;
+  margin: 4rem auto 1rem auto;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -6,7 +14,6 @@
   right: 0;
   background-color: rgba(12, 12, 12, 0.3);
   backdrop-filter: blur(2px);
-  /* z-index: 10; */
 }
 
 .modal {

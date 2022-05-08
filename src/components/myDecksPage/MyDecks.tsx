@@ -1,6 +1,9 @@
 import { useEffect, useContext } from "react";
 
 import { AuthContext as Context } from "../App";
+import SortDecksInputs from "./SortDecksInputs";
+import DecksContainer from "./DecksContainer";
+import "../../styles/myDecksPage.css";
 
 const MyDecks = () => {
   const { authDispatch } = useContext(Context);
@@ -24,7 +27,12 @@ const MyDecks = () => {
     getDecks();
   }, []);
 
-  return <div style={{ backgroundColor: "#fff" }}>MyDecks</div>;
+  return (
+    <div className="page">
+      <SortDecksInputs />
+      <DecksContainer />
+    </div>
+  );
 };
 
 export default MyDecks;

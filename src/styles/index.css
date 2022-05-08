@@ -7,15 +7,15 @@
 
 /* PALETTE */
 /* 
-APP: #e9ecef
-CARDS: #F8F9FA
+FONT-COLOR: #343a40
+DARK: #e9ecef
+LIGHT: #F8F9FA
 primary: #ffba08
  */
 
 html {
   font-size: 62.5%;
 }
-
 body {
   font-family: sans-serif;
 }
@@ -26,15 +26,12 @@ body {
 body::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-
 input:focus {
   outline: none;
 }
-
 ul {
   list-style-type: none;
 }
-
 button {
   border: none;
   cursor: pointer;
