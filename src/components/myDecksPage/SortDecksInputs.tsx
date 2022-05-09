@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { BsSearch } from "react-icons/bs";
 
 const options = [
   { name: "newest", value: "newest" },
@@ -32,7 +33,7 @@ const SortDecksInputs = () => {
         )}
       </button>
 
-      <input className="input--find-decks" />
+      <input className="input--find-decks" placeholder="Search your sets" />
     </div>
   );
 };

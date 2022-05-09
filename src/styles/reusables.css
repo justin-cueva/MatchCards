@@ -51,3 +51,7 @@
 .invisible {
   visibility: hidden;
 }
+
+.max-w-80 {
+  max-width: 80rem;
+}

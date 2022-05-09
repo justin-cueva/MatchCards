@@ -28,7 +28,7 @@ const MyDecks = () => {
   }, []);
 
   return (
-    <div className="page">
+    <div className="page max-w-80">
       <SortDecksInputs />
       <DecksContainer />
     </div>
