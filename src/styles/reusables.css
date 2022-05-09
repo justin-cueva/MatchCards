@@ -55,3 +55,7 @@
 .max-w-80 {
   max-width: 80rem;
 }
+
+.self-center {
+  align-self: center;
+}

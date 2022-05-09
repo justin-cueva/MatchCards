@@ -27,7 +27,8 @@ export default (
 ) => {
   switch (action.type) {
     case "GOT_DECKS":
-      return { ...state, myDecks: action.payload };
+      if (!action.payload) return state;
+      return { ...state, myDecks: Object.values(action.payload) };
     case "LOGIN":
       return {
         ...state,
