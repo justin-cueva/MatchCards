@@ -3,9 +3,10 @@ type AuthActionTypes =
   | { type: "LOGOUT" }
   | { type: "GOT_DECKS"; payload: any[] };
 
-type Deck = {
-  card: string;
-  id: number;
+export type Deck = {
+  cards: any[];
+  title: string;
+  date?: string;
 };
 
 type DefaultStateType = {

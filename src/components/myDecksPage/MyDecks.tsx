@@ -6,7 +6,7 @@ import DecksContainer from "./DecksContainer";
 import "../../styles/myDecksPage.css";
 
 const MyDecks = () => {
-  const { authDispatch } = useContext(Context);
+  const { authDispatch, authState } = useContext(Context);
 
   const getDecks = async () => {
     const userId = localStorage.getItem("userId");
@@ -30,7 +30,7 @@ const MyDecks = () => {
   return (
     <div className="page max-w-80">
       <SortDecksInputs />
-      <DecksContainer />
+      <DecksContainer decks={authState.myDecks} />
     </div>
   );
 };

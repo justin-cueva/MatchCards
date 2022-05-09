@@ -1,26 +1,33 @@
+import { useEffect } from "react";
+
+import { Deck } from "../../reducers/authReducer";
 import "../../styles/myDecksContainer.css";
 
-const DecksContainer = () => {
+type Props = {
+  decks: Deck[];
+};
+
+const DecksContainer = ({ decks }: Props) => {
+  useEffect(() => {
+    console.log(decks);
+  }, []);
+
   return (
     <div className="container--my-decks">
-      <div className="container--decks-of-a-date">
-        <label>
-          <span>March 20 2022</span>
-        </label>
-        <div className="my-decks__deck">
-          <span>3 terms</span>
-          <h4>Presidents</h4>
-        </div>
-      </div>
-      <div className="container--decks-of-a-date">
-        <label>
-          <span>March 20 2022ch 20 2022ch 20 2022</span>
-        </label>
-        <div className="my-decks__deck">
-          <span>3 terms</span>
-          <h4>Presidents</h4>
-        </div>
-      </div>
+      {decks &&
+        decks.map(({ cards, title }, index) => {
+          return (
+            <div key={index} className="container--decks-of-a-date">
+              <label>
+                <span>March 20 2022</span>
+              </label>
+              <div className="my-decks__deck">
+                <span>{cards.length} terms</span>
+                <h4>{title}</h4>
+              </div>
+            </div>
+          );
+        })}
     </div>
   );
 };
