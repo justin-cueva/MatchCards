@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import ReactLoading from "react-loading";
 
+import Message from "../reusables/Message";
 import { Deck } from "../../reducers/authReducer";
 import "../../styles/myDecksContainer.css";
 
@@ -27,7 +28,7 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
   return (
     <div className="container--my-decks">
       {decks.length === 0 && !decksAreLoading && (
-        <div>You have no decks created</div>
+        <Message text="You have no decks created" />
       )}
 
       {decksAreLoading && lComponent}

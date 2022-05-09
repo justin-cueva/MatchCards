@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AuthContext as context } from "../App";
 import MenuModal from "./MenuModal";
 import { links } from "./MenuModal";
-import "../../styles/header.css";
+import "../../styles/reusables/header.css";
 
 const Header = () => {
   const { pathname } = useLocation();
