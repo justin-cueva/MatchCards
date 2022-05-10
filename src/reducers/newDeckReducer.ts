@@ -9,7 +9,8 @@ export type ActionTypes =
       payload: { definition: string; cardNumber: number };
     }
   | { type: "ADD_CARD" }
-  | { type: "DELETE_CARD"; payload: number };
+  | { type: "DELETE_CARD"; payload: number }
+  | { type: "CREATE_DECK" };
 
 export const newDeckInitState = {
   title: "",
@@ -33,6 +34,8 @@ type NewDeckState = {
 
 export const newDeckReducer = (state: NewDeckState, action: ActionTypes) => {
   switch (action.type) {
+    case "CREATE_DECK":
+      return { ...newDeckInitState };
     case "ADD_CARD":
       const cardNumbers = state.cards.map((card) => {
         return card.number;

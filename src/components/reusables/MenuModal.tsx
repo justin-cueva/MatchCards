@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 
-import "../../styles/menuModal.css";
+import "../../styles/reusables/menuModal.css";
 
 export const links = [
   { name: "Home", to: "/" },

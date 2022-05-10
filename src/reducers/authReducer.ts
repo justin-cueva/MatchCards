@@ -1,10 +1,12 @@
 type AuthActionTypes =
-  | { type: "LOGIN"; payload: { userId: string; decks: [] } }
-  | { type: "LOGOUT" };
+  | { type: "LOGIN"; payload: { userId: string } }
+  | { type: "LOGOUT" }
+  | { type: "GOT_DECKS"; payload: any[] };
 
-type Deck = {
-  card: string;
-  id: number;
+export type Deck = {
+  cards: any[];
+  title: string;
+  date?: string;
 };
 
 type DefaultStateType = {
@@ -24,9 +26,12 @@ export default (
   action: AuthActionTypes
 ) => {
   switch (action.type) {
+    case "GOT_DECKS":
+      if (!action.payload) return state;
+      return { ...state, myDecks: Object.values(action.payload) };
     case "LOGIN":
       return {
-        myDecks: action.payload.decks,
+        ...state,
         isLoggedIn: true,
         userId: action.payload.userId,
       };

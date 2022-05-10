@@ -1,0 +1,52 @@
+/* MY DECKS PAGE */
+.container--my-decks {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 2rem;
+}
+
+.container--decks-of-a-date label span {
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  background-color: #e9ecef;
+  padding-right: 1rem;
+  z-index: 2;
+}
+
+.container--decks-of-a-date label {
+  display: block;
+  display: flex;
+  font-size: 1.4rem;
+  position: relative;
+}
+
+.container--decks-of-a-date label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+}
+
+.my-decks__deck {
+  background-color: #f8f9fa;
+  padding: 1.2rem 2rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.my-decks__deck span {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  font-size: 1.6rem;
+}
+
+.my-decks__deck h4 {
+  font-size: 2rem;
+}

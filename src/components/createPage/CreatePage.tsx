@@ -1,7 +1,9 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import SingleCard from "./SingleCard";
 import AddCardBtn from "./AddCardBtn";
+import { AuthContext as Context } from "../App";
 import {
   newDeckReducer,
   newDeckInitState,
@@ -9,15 +11,44 @@ import {
 import "../../styles/create.css";
 
 const CreatePage = () => {
+  const navigate = useNavigate();
+  const { authState } = useContext(Context);
   const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
+  const [error, setError] = useState<null | string>(null);
 
-  const createHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const numberOfCards = newDeckState.cards.length;
+
+  const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitting form");
+    setError(null);
+
+    try {
+      if (!authState.isLoggedIn)
+        throw new Error("Log in or create an account to build a deck");
+
+      if (newDeckState.title === "") throw new Error("Give your deck a title");
+
+      const notFinished = newDeckState.cards.some((card) => {
+        if (card.term === "" || card.definition === "") return true;
+      });
+      if (notFinished)
+        throw new Error("Add a term and definition to all your cards");
+
+      console.log(newDeckState);
+      await fetch(
+        `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${authState.userId}.json`,
+        { method: "POST", body: JSON.stringify(newDeckState) }
+      );
+      dispatch({ type: "CREATE_DECK" });
+      navigate("/myDecks");
+    } catch (err: any) {
+      console.error(err);
+      setError(`${err.message}`);
+    }
   };
 
   return (
-    <form onSubmit={(e) => createHandler(e)} className="create-page">
+    <form onSubmit={(e) => createHandler(e)} className="page">
       <div className="flex justify-between items-center mb-3">
         <h2>Create a new deck</h2>
         <button className="btn-create--top btn--create">Create</button>
@@ -29,9 +60,11 @@ const CreatePage = () => {
         placeholder={`Enter a title, like "Biology"`}
         className="create__title"
       />
+      {error && <p className="error--new-deck">{error}</p>}
       {newDeckState.cards.map((card, index) => {
         return (
           <SingleCard
+            numberOfCards={numberOfCards}
             key={index}
             card={card}
             index={index}
@@ -39,7 +72,7 @@ const CreatePage = () => {
           />
         );
       })}
-      <AddCardBtn dispatch={dispatch} />
+      {numberOfCards < 10 && <AddCardBtn dispatch={dispatch} />}
       <button className="btn-create--bottom  btn--create">Create</button>
     </form>
   );

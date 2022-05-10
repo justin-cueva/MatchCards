@@ -19,11 +19,9 @@ const App = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (userId) {
-      authDispatch({ type: "LOGIN", payload: { userId: userId, decks: [] } });
+      authDispatch({ type: "LOGIN", payload: { userId: userId } });
     }
   }, []);
-
-  useEffect(() => console.log(authState), [authState]);
 
   return (
     <AuthContext.Provider
