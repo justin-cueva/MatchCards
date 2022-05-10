@@ -3,7 +3,7 @@ import { useEffect, useContext, useState } from "react";
 import { AuthContext as Context } from "../App";
 import SortDecksInputs from "./SortDecksInputs";
 import DecksContainer from "./DecksContainer";
-import "../../styles/myDecksPage.css";
+import "../../styles/myDeckPage/myDecksPage.css";
 
 const MyDecks = () => {
   const { authDispatch, authState } = useContext(Context);

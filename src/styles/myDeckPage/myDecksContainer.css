@@ -39,6 +39,9 @@
   padding: 1.2rem 2rem;
   border-radius: 4px;
   margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .my-decks__deck span {
@@ -49,4 +52,11 @@
 
 .my-decks__deck h4 {
   font-size: 2rem;
+}
+
+.deck__actions .delete {
+  background-color: #ff0000;
+  border-radius: 4px;
+  color: #f8f9fa;
+  padding: 1rem 2rem;
 }
