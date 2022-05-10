@@ -13,6 +13,7 @@
 
 .icon--close-menu-modal {
   font-size: 3.2rem;
+  z-index: 2;
   color: #fff;
   position: absolute;
   top: 1rem;

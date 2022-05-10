@@ -8,6 +8,7 @@
 
 .overlay {
   position: fixed;
+  z-index: 2;
   top: 0;
   left: 0;
   bottom: 0;
@@ -17,6 +18,7 @@
 }
 
 .modal {
+  z-index: 2;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -58,4 +60,8 @@
 
 .self-center {
   align-self: center;
+}
+
+.z-2 {
+  z-index: 2;
 }
