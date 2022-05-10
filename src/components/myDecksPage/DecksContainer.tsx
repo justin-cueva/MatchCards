@@ -3,7 +3,7 @@ import ReactLoading from "react-loading";
 
 import Message from "../reusables/Message";
 import { Deck } from "../../reducers/authReducer";
-import "../../styles/myDecksContainer.css";
+import "../../styles/myDeckPage/myDecksContainer.css";
 
 type Props = {
   decks: Deck[];
