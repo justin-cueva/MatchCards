@@ -8,7 +8,7 @@ export type Deck = {
   cards: any[];
   title: string;
   date?: string;
-  key?: string;
+  key: string;
 };
 
 type DefaultStateType = {
