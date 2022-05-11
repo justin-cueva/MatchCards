@@ -1,5 +1,5 @@
 import { useReducer, useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import SingleCard from "./SingleCard";
 import AddCardBtn from "./AddCardBtn";
@@ -11,12 +11,29 @@ import {
 import "../../styles/create.css";
 
 const CreatePage = () => {
+  const { myDecksId } = useParams();
   const navigate = useNavigate();
   const { authState } = useContext(Context);
   const [configDeckState, dispatch] = useReducer(
     configDeckReducer,
     newDeckInitState
   );
+
+  useEffect(() => {
+    if (myDecksId) {
+      const deck = authState.myDecks.find((deck: any) => {
+        return deck.key === myDecksId;
+      });
+      dispatch({ type: "EDIT_DECK", payload: { deck } });
+      // trying to EDIT a deck
+      // configDispatch({type: "EDIT_DECK", payload: {deckId: myDecksId}})
+    }
+    if (!myDecksId) {
+      // trying to CREATE a deck
+      // do nothing because just bc
+    }
+  }, []);
+
   const [error, setError] = useState<null | string>(null);
 
   const numberOfCards = configDeckState.cards.length;
@@ -58,6 +75,7 @@ const CreatePage = () => {
         <button className="btn-create--top btn--create">Create</button>
       </div>
       <input
+        value={configDeckState.title}
         onChange={(e) =>
           dispatch({ type: "CHANGE_TITLE", payload: e.target.value })
         }

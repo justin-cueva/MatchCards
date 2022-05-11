@@ -10,9 +10,11 @@ export type ActionTypes =
     }
   | { type: "ADD_CARD" }
   | { type: "DELETE_CARD"; payload: number }
-  | { type: "CREATE_DECK" };
+  | { type: "CREATE_DECK" }
+  | { type: "EDIT_DECK"; payload: { deck: ConfigDeckState } };
 
 export const newDeckInitState = {
+  key: "",
   title: "",
   cards: [
     { term: "", definition: "", number: 1 },
@@ -28,6 +30,7 @@ export type Card = {
 };
 
 type ConfigDeckState = {
+  key?: string;
   title: string;
   cards: Card[];
 };
@@ -37,6 +40,9 @@ export const configDeckReducer = (
   action: ActionTypes
 ) => {
   switch (action.type) {
+    case "EDIT_DECK":
+      console.log(action.payload.deck);
+      return { ...action.payload.deck };
     case "CREATE_DECK":
       return { ...newDeckInitState };
     case "ADD_CARD":

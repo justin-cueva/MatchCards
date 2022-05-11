@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 type Props = {
   setDeleteModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deckId: string;
 };
 
-const DeckActions = ({ setDeleteModalIsOpen }: Props) => {
+const DeckActions = ({ setDeleteModalIsOpen, deckId }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className="deck__actions">
       <button
@@ -17,6 +22,8 @@ const DeckActions = ({ setDeleteModalIsOpen }: Props) => {
       </button>
       <button
         onClick={() => {
+          navigate(`/myDecks/edit/${deckId}`);
+          // log the ID of the deck
           console.log("editing deck");
           // navigate to /myDecks/edit/:deckId
         }}

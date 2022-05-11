@@ -67,7 +67,10 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
                     <span>{cards.length} terms</span>
                     <h4>{title}</h4>
                   </div>
-                  <DeckActions setDeleteModalIsOpen={setDeleteModalIsOpen} />
+                  <DeckActions
+                    setDeleteModalIsOpen={setDeleteModalIsOpen}
+                    deckId={key}
+                  />
                 </div>
               </div>
             );
