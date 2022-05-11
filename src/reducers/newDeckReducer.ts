@@ -27,12 +27,15 @@ export type Card = {
   number: number;
 };
 
-type NewDeckState = {
+type ConfigDeckState = {
   title: string;
   cards: Card[];
 };
 
-export const newDeckReducer = (state: NewDeckState, action: ActionTypes) => {
+export const configDeckReducer = (
+  state: ConfigDeckState,
+  action: ActionTypes
+) => {
   switch (action.type) {
     case "CREATE_DECK":
       return { ...newDeckInitState };

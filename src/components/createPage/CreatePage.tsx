@@ -5,7 +5,7 @@ import SingleCard from "./SingleCard";
 import AddCardBtn from "./AddCardBtn";
 import { AuthContext as Context } from "../App";
 import {
-  newDeckReducer,
+  configDeckReducer,
   newDeckInitState,
 } from "../../reducers/newDeckReducer";
 import "../../styles/create.css";
@@ -13,10 +13,13 @@ import "../../styles/create.css";
 const CreatePage = () => {
   const navigate = useNavigate();
   const { authState } = useContext(Context);
-  const [newDeckState, dispatch] = useReducer(newDeckReducer, newDeckInitState);
+  const [configDeckState, dispatch] = useReducer(
+    configDeckReducer,
+    newDeckInitState
+  );
   const [error, setError] = useState<null | string>(null);
 
-  const numberOfCards = newDeckState.cards.length;
+  const numberOfCards = configDeckState.cards.length;
 
   const createHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,18 +29,19 @@ const CreatePage = () => {
       if (!authState.isLoggedIn)
         throw new Error("Log in or create an account to build a deck");
 
-      if (newDeckState.title === "") throw new Error("Give your deck a title");
+      if (configDeckState.title === "")
+        throw new Error("Give your deck a title");
 
-      const notFinished = newDeckState.cards.some((card) => {
+      const notFinished = configDeckState.cards.some((card) => {
         if (card.term === "" || card.definition === "") return true;
       });
       if (notFinished)
         throw new Error("Add a term and definition to all your cards");
 
-      console.log(newDeckState);
+      // console.log(configDeckState);
       await fetch(
         `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${authState.userId}.json`,
-        { method: "POST", body: JSON.stringify(newDeckState) }
+        { method: "POST", body: JSON.stringify(configDeckState) }
       );
       dispatch({ type: "CREATE_DECK" });
       navigate("/myDecks");
@@ -61,7 +65,7 @@ const CreatePage = () => {
         className="create__title"
       />
       {error && <p className="error--new-deck">{error}</p>}
-      {newDeckState.cards.map((card, index) => {
+      {configDeckState.cards.map((card, index) => {
         return (
           <SingleCard
             numberOfCards={numberOfCards}
