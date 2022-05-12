@@ -11,9 +11,18 @@ export type ActionTypes =
   | { type: "ADD_CARD" }
   | { type: "DELETE_CARD"; payload: number }
   | { type: "CREATE_DECK" }
-  | { type: "EDIT_DECK"; payload: { deck: ConfigDeckState } };
+  | { type: "EDIT_DECK"; payload: { deck: ConfigDeckState } }
+  | { type: "ADD_CREATION_DATE"; payload: Date };
+
+const timeElapsed = Date.now();
+const today = new Date(timeElapsed);
+const month = today.getMonth();
+const day = today.getDate();
+const year = today.getFullYear();
+const initDate = `${month + 1}-${day}-${year}`;
 
 export const newDeckInitState = {
+  date: initDate,
   key: "",
   title: "",
   cards: [
@@ -33,6 +42,7 @@ type ConfigDeckState = {
   key?: string;
   title: string;
   cards: Card[];
+  date?: string;
 };
 
 export const configDeckReducer = (

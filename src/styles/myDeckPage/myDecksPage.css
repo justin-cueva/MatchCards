@@ -34,6 +34,7 @@
   min-width: 12rem;
   background-color: #f8f9fa;
   z-index: 3;
+  border: 1px solid #343a40;
 }
 
 .option {

@@ -11,15 +11,72 @@ import "../../styles/myDeckPage/myDecksContainer.css";
 type Props = {
   decks: Deck[];
   decksAreLoading: boolean;
+  currentSort: string;
 };
 
-const DecksContainer = ({ decks, decksAreLoading }: Props) => {
+const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
   const { authState, authDispatch } = useContext(Context);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [deckOrder, setDeckOrder] = useState<Deck[]>(decks);
 
   useEffect(() => {
-    console.log(authState.myDecks);
-  }, [authState]);
+    if (currentSort === "newest") {
+      const newestSorted = decks
+        .sort(function (a, b) {
+          const aDay = Number(a.date?.split("-")[1]);
+          const bDay = Number(b.date?.split("-")[1]);
+          return aDay - bDay;
+        })
+        .sort((a, b) => {
+          const aMonth = Number(a.date?.split("-")[0]);
+          const bMonth = Number(b.date?.split("-")[0]);
+          return aMonth - bMonth;
+        })
+        .sort((a, b) => {
+          const aYear = Number(a.date?.split("-")[2]);
+          const bYear = Number(b.date?.split("-")[2]);
+          return aYear - bYear;
+        });
+      setDeckOrder(newestSorted);
+    }
+    if (currentSort === "oldest") {
+      const oldestSorted = decks
+        .sort(function (a, b) {
+          const aDay = Number(a.date?.split("-")[1]);
+          const bDay = Number(b.date?.split("-")[1]);
+          return bDay - aDay;
+        })
+        .sort((a, b) => {
+          const aMonth = Number(a.date?.split("-")[0]);
+          const bMonth = Number(b.date?.split("-")[0]);
+          return bMonth - aMonth;
+        })
+        .sort((a, b) => {
+          const aYear = Number(a.date?.split("-")[2]);
+          const bYear = Number(b.date?.split("-")[2]);
+          return bYear - aYear;
+        });
+      setDeckOrder(oldestSorted);
+    }
+    if (currentSort === "most terms") {
+      // console.log("sorting MOST");
+      const mostSorted = decks.sort(function (a, b) {
+        return a.cards.length - b.cards.length;
+      });
+      setDeckOrder(mostSorted);
+    }
+    if (currentSort === "least terms") {
+      // console.log("sorting LEAST");
+      const leastSorted = decks.sort(function (a, b) {
+        return b.cards.length - a.cards.length;
+      });
+      setDeckOrder(leastSorted);
+    }
+  }, [currentSort]);
+
+  // useEffect(() => {
+  //   console.log(authState.myDecks);
+  // }, [authState]);
 
   const lComponent = (
     <ReactLoading
@@ -50,7 +107,7 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
         )}
         {decksAreLoading && lComponent}
         {!decksAreLoading &&
-          decks.map(({ cards, title, key }, index) => {
+          deckOrder.map(({ cards, title, key, date }, index) => {
             return (
               <div key={index} className="container--decks-of-a-date">
                 {deleteModalIsOpen && (
@@ -60,7 +117,7 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
                   />
                 )}
                 <label>
-                  <span>March 20 2022</span>
+                  <span>{date ? date : "March 20 2022"}</span>
                 </label>
                 <div className="my-decks__deck">
                   <div>
