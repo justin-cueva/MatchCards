@@ -4,6 +4,10 @@
   max-width: 30rem;
 }
 
+.config-form-heading {
+  font-size: 3rem;
+}
+
 .input--find-decks,
 .sort-inputs button {
   padding: 0.6rem 1.2rem;
