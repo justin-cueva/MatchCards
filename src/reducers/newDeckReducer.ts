@@ -18,7 +18,8 @@ const timeElapsed = Date.now();
 const today = new Date(timeElapsed);
 const month = today.getMonth();
 const day = today.getDate();
-const initDate = `${month + 1}-${day}`;
+const year = today.getFullYear();
+const initDate = `${month + 1}-${day}-${year}`;
 
 export const newDeckInitState = {
   date: initDate,

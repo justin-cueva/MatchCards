@@ -21,17 +21,46 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
 
   useEffect(() => {
     if (currentSort === "newest") {
-      // setDeckOrder
-      // console.log("sorting NEWEST");
-      setDeckOrder(decks);
+      const newestSorted = decks
+        .sort(function (a, b) {
+          const aDay = Number(a.date?.split("-")[1]);
+          const bDay = Number(b.date?.split("-")[1]);
+          return aDay - bDay;
+        })
+        .sort((a, b) => {
+          const aMonth = Number(a.date?.split("-")[0]);
+          const bMonth = Number(b.date?.split("-")[0]);
+          return aMonth - bMonth;
+        })
+        .sort((a, b) => {
+          const aYear = Number(a.date?.split("-")[2]);
+          const bYear = Number(b.date?.split("-")[2]);
+          return aYear - bYear;
+        });
+      setDeckOrder(newestSorted);
     }
-    // if (currentSort === "oldest") {
-    //   console.log("sorting OLDESTS");
-    // }
+    if (currentSort === "oldest") {
+      const oldestSorted = decks
+        .sort(function (a, b) {
+          const aDay = Number(a.date?.split("-")[1]);
+          const bDay = Number(b.date?.split("-")[1]);
+          return bDay - aDay;
+        })
+        .sort((a, b) => {
+          const aMonth = Number(a.date?.split("-")[0]);
+          const bMonth = Number(b.date?.split("-")[0]);
+          return bMonth - aMonth;
+        })
+        .sort((a, b) => {
+          const aYear = Number(a.date?.split("-")[2]);
+          const bYear = Number(b.date?.split("-")[2]);
+          return bYear - aYear;
+        });
+      setDeckOrder(oldestSorted);
+    }
     if (currentSort === "most terms") {
       // console.log("sorting MOST");
       const mostSorted = decks.sort(function (a, b) {
-        console.log(typeof a.cards.length);
         return a.cards.length - b.cards.length;
       });
       setDeckOrder(mostSorted);
@@ -39,7 +68,6 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
     if (currentSort === "least terms") {
       // console.log("sorting LEAST");
       const leastSorted = decks.sort(function (a, b) {
-        // console.log(typeof a.cards.length);
         return b.cards.length - a.cards.length;
       });
       setDeckOrder(leastSorted);
