@@ -2,6 +2,7 @@ import { useEffect, useContext, useState, Fragment } from "react";
 import ReactLoading from "react-loading";
 
 import DeleteDeckModal from "./DeleteDeckModal";
+import DeckActions from "./DeckActions";
 import Message from "../reusables/Message";
 import { AuthContext as Context } from "../App";
 import { Deck } from "../../reducers/authReducer";
@@ -66,18 +67,10 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
                     <span>{cards.length} terms</span>
                     <h4>{title}</h4>
                   </div>
-                  <div className="deck__actions">
-                    <button
-                      onClick={() => {
-                        setDeleteModalIsOpen(true);
-                        // deleteDeck(key);
-                      }}
-                      type="button"
-                      className="delete"
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  <DeckActions
+                    setDeleteModalIsOpen={setDeleteModalIsOpen}
+                    deckId={key}
+                  />
                 </div>
               </div>
             );

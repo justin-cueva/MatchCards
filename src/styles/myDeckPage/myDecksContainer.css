@@ -55,11 +55,25 @@
   font-size: 2rem;
 }
 
+.deck__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.deck__actions .edit,
 .delete {
-  background-color: #ff0000;
   border-radius: 4px;
   color: #f8f9fa;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.6rem;
+}
+
+.deck__actions .edit {
+  background-color: blue;
+}
+
+.delete {
+  background-color: #ff0000;
 }
 
 .modal--delete {
