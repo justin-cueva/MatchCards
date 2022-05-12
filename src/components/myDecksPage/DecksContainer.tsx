@@ -11,11 +11,40 @@ import "../../styles/myDeckPage/myDecksContainer.css";
 type Props = {
   decks: Deck[];
   decksAreLoading: boolean;
+  currentSort: string;
 };
 
-const DecksContainer = ({ decks, decksAreLoading }: Props) => {
+const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
   const { authState, authDispatch } = useContext(Context);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [deckOrder, setDeckOrder] = useState<Deck[]>(decks);
+
+  useEffect(() => {
+    if (currentSort === "newest") {
+      // setDeckOrder
+      console.log("sorting NEWEST");
+      setDeckOrder(decks);
+    }
+    // if (currentSort === "oldest") {
+    //   console.log("sorting OLDESTS");
+    // }
+    if (currentSort === "most terms") {
+      console.log("sorting MOST");
+      const mostSorted = decks.sort(function (a, b) {
+        console.log(typeof a.cards.length);
+        return a.cards.length - b.cards.length;
+      });
+      setDeckOrder(mostSorted);
+    }
+    if (currentSort === "least terms") {
+      console.log("sorting LEAST");
+      const leastSorted = decks.sort(function (a, b) {
+        console.log(typeof a.cards.length);
+        return b.cards.length - a.cards.length;
+      });
+      setDeckOrder(leastSorted);
+    }
+  }, [currentSort]);
 
   useEffect(() => {
     console.log(authState.myDecks);
@@ -50,7 +79,7 @@ const DecksContainer = ({ decks, decksAreLoading }: Props) => {
         )}
         {decksAreLoading && lComponent}
         {!decksAreLoading &&
-          decks.map(({ cards, title, key }, index) => {
+          deckOrder.map(({ cards, title, key }, index) => {
             return (
               <div key={index} className="container--decks-of-a-date">
                 {deleteModalIsOpen && (

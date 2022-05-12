@@ -8,6 +8,7 @@ import "../../styles/myDeckPage/myDecksPage.css";
 const MyDecks = () => {
   const { authDispatch, authState } = useContext(Context);
   const [decksAreLoading, setDecksAreLoading] = useState<boolean>(false);
+  const [currentSort, setCurrentSort] = useState<string>("newest");
 
   const getDecks = async () => {
     // set loading
@@ -35,8 +36,12 @@ const MyDecks = () => {
 
   return (
     <div className="page max-w-80">
-      <SortDecksInputs />
+      <SortDecksInputs
+        setCurrentSort={setCurrentSort}
+        currentSort={currentSort}
+      />
       <DecksContainer
+        currentSort={currentSort}
         decksAreLoading={decksAreLoading}
         decks={authState.myDecks}
       />
