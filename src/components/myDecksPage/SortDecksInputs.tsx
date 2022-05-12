@@ -7,10 +7,10 @@ type Props = {
 };
 
 const options = [
-  { name: "newest", value: "newest" },
-  { name: "oldest", value: "oldest" },
-  { name: "most terms", value: "most_terms" },
-  { name: "least terms", value: "least_terms" },
+  { name: "newest" },
+  { name: "oldest" },
+  { name: "most terms" },
+  { name: "least terms" },
 ];
 
 const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
@@ -26,7 +26,7 @@ const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
         {currentSort}
         {sortIsOpen && (
           <div className="sort-modal">
-            {options.map(({ name, value }, index) => {
+            {options.map(({ name }, index) => {
               return (
                 <div
                   key={index}

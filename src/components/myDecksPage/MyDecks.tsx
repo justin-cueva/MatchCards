@@ -8,7 +8,7 @@ import "../../styles/myDeckPage/myDecksPage.css";
 const MyDecks = () => {
   const { authDispatch, authState } = useContext(Context);
   const [decksAreLoading, setDecksAreLoading] = useState<boolean>(false);
-  const [currentSort, setCurrentSort] = useState<string>("newest");
+  const [currentSort, setCurrentSort] = useState<string>("most terms");
 
   const getDecks = async () => {
     // set loading

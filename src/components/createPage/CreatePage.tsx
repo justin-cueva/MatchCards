@@ -14,11 +14,23 @@ const CreatePage = () => {
   const { myDecksId } = useParams();
   const navigate = useNavigate();
   const { authState } = useContext(Context);
-  const [configDeckState, dispatch] = useReducer(
+  const [configDeckState, configDeckDispatch] = useReducer(
     configDeckReducer,
     newDeckInitState
   );
   const [formMode, setFormMode] = useState<string>("CREATE");
+
+  useEffect(() => {
+    console.log(configDeckState);
+  }, [configDeckState]);
+
+  // useEffect(() => {
+  //   if (formMode === "CREATE") {
+  //     const timeElapsed = Date.now();
+  //     const today = new Date(timeElapsed);
+  //     configDeckDispatch({ type: "ADD_CREATION_DATE", payload: today });
+  //   }
+  // }, [formMode]);
 
   useEffect(() => {
     if (myDecksId) {
@@ -26,13 +38,13 @@ const CreatePage = () => {
       const deck = authState.myDecks.find((deck: any) => {
         return deck.key === myDecksId;
       });
-      dispatch({ type: "EDIT_DECK", payload: { deck } });
+      configDeckDispatch({ type: "EDIT_DECK", payload: { deck } });
       // trying to EDIT a deck
       // configDispatch({type: "EDIT_DECK", payload: {deckId: myDecksId}})
     }
     if (!myDecksId) {
       setFormMode("CREATE");
-      dispatch({ type: "CREATE_DECK" });
+      configDeckDispatch({ type: "CREATE_DECK" });
       // dispatch action to clear all inputs
       // trying to CREATE a deck
       // do nothing because just bc
@@ -78,7 +90,8 @@ const CreatePage = () => {
         method: method,
         body: JSON.stringify(configDeckState),
       });
-      dispatch({ type: "CREATE_DECK" });
+      console.log(configDeckState);
+      configDeckDispatch({ type: "CREATE_DECK" });
       navigate("/myDecks");
     } catch (err: any) {
       console.error(err);
@@ -99,7 +112,7 @@ const CreatePage = () => {
       <input
         value={configDeckState.title}
         onChange={(e) =>
-          dispatch({ type: "CHANGE_TITLE", payload: e.target.value })
+          configDeckDispatch({ type: "CHANGE_TITLE", payload: e.target.value })
         }
         placeholder={`Enter a title, like "Biology"`}
         className="create__title"
@@ -112,11 +125,11 @@ const CreatePage = () => {
             key={index}
             card={card}
             index={index}
-            dispatch={dispatch}
+            dispatch={configDeckDispatch}
           />
         );
       })}
-      {numberOfCards < 10 && <AddCardBtn dispatch={dispatch} />}
+      {numberOfCards < 10 && <AddCardBtn dispatch={configDeckDispatch} />}
       <button className="btn-create--bottom  btn--create">
         {formMode === "CREATE" ? "Create" : "Save"}
       </button>

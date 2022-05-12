@@ -22,14 +22,14 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
   useEffect(() => {
     if (currentSort === "newest") {
       // setDeckOrder
-      console.log("sorting NEWEST");
+      // console.log("sorting NEWEST");
       setDeckOrder(decks);
     }
     // if (currentSort === "oldest") {
     //   console.log("sorting OLDESTS");
     // }
     if (currentSort === "most terms") {
-      console.log("sorting MOST");
+      // console.log("sorting MOST");
       const mostSorted = decks.sort(function (a, b) {
         console.log(typeof a.cards.length);
         return a.cards.length - b.cards.length;
@@ -37,18 +37,18 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
       setDeckOrder(mostSorted);
     }
     if (currentSort === "least terms") {
-      console.log("sorting LEAST");
+      // console.log("sorting LEAST");
       const leastSorted = decks.sort(function (a, b) {
-        console.log(typeof a.cards.length);
+        // console.log(typeof a.cards.length);
         return b.cards.length - a.cards.length;
       });
       setDeckOrder(leastSorted);
     }
   }, [currentSort]);
 
-  useEffect(() => {
-    console.log(authState.myDecks);
-  }, [authState]);
+  // useEffect(() => {
+  //   console.log(authState.myDecks);
+  // }, [authState]);
 
   const lComponent = (
     <ReactLoading
@@ -79,7 +79,7 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
         )}
         {decksAreLoading && lComponent}
         {!decksAreLoading &&
-          deckOrder.map(({ cards, title, key }, index) => {
+          deckOrder.map(({ cards, title, key, date }, index) => {
             return (
               <div key={index} className="container--decks-of-a-date">
                 {deleteModalIsOpen && (
@@ -89,7 +89,7 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
                   />
                 )}
                 <label>
-                  <span>March 20 2022</span>
+                  <span>{date ? date : "March 20 2022"}</span>
                 </label>
                 <div className="my-decks__deck">
                   <div>
