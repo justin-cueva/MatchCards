@@ -72,11 +72,7 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
       });
       setDeckOrder(leastSorted);
     }
-  }, [currentSort]);
-
-  // useEffect(() => {
-  //   console.log(authState.myDecks);
-  // }, [authState]);
+  }, [currentSort, decks]);
 
   const lComponent = (
     <ReactLoading
