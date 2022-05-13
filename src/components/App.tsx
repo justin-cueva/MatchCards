@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { createContext, useReducer, useEffect } from "react";
 
 import authReducer, {
@@ -31,7 +31,7 @@ const App = () => {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home authState={authState} />} />
             <Route path="/create" element={<ConfigDeckPage />} />
             <Route path="/myDecks" element={<MyDecks />} />
             <Route
