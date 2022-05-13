@@ -29,6 +29,9 @@ const Header = () => {
         </span>
         <ul className="link-list">
           {links.map((link, index) => {
+            if (link.to === "/auth" && authContext.authState.isLoggedIn)
+              return null;
+
             return (
               <li
                 key={index}
