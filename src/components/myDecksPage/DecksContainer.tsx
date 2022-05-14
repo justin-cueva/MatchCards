@@ -1,9 +1,10 @@
-import { useEffect, useContext, useState, Fragment } from "react";
+import { useContext, useState, Fragment } from "react";
 import ReactLoading from "react-loading";
 
 import DeleteDeckModal from "./DeleteDeckModal";
 import DeckActions from "./DeckActions";
 import Message from "../reusables/Message";
+import useSortAndFilter from "./useSortAndFilter";
 import { AuthContext as Context } from "../App";
 import { Deck } from "../../reducers/authReducer";
 import "../../styles/myDeckPage/myDecksContainer.css";
@@ -16,79 +17,9 @@ type Props = {
 };
 
 const DecksContainer = (props: Props) => {
+  const { deckOrder } = useSortAndFilter(props);
   const { authState, authDispatch } = useContext(Context);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const [deckOrder, setDeckOrder] = useState<Deck[]>(props.decks);
-
-  useEffect(() => {
-    if (props.currentSort === "oldest") {
-      const newestSorted = props.decks
-        .sort(function (a, b) {
-          const aDay = Number(a.date?.split("-")[1]);
-          const bDay = Number(b.date?.split("-")[1]);
-          return aDay - bDay;
-        })
-        .sort((a, b) => {
-          const aMonth = Number(a.date?.split("-")[0]);
-          const bMonth = Number(b.date?.split("-")[0]);
-          return aMonth - bMonth;
-        })
-        .sort((a, b) => {
-          const aYear = Number(a.date?.split("-")[2]);
-          const bYear = Number(b.date?.split("-")[2]);
-          return aYear - bYear;
-        });
-      setDeckOrder(newestSorted);
-    }
-    if (props.currentSort === "newest") {
-      const oldestSorted = props.decks
-        .sort(function (a, b) {
-          const aDay = Number(a.date?.split("-")[1]);
-          const bDay = Number(b.date?.split("-")[1]);
-          return bDay - aDay;
-        })
-        .sort((a, b) => {
-          const aMonth = Number(a.date?.split("-")[0]);
-          const bMonth = Number(b.date?.split("-")[0]);
-          return bMonth - aMonth;
-        })
-        .sort((a, b) => {
-          const aYear = Number(a.date?.split("-")[2]);
-          const bYear = Number(b.date?.split("-")[2]);
-          return bYear - aYear;
-        });
-      setDeckOrder(oldestSorted);
-    }
-    if (props.currentSort === "least terms") {
-      // console.log("sorting MOST");
-      const mostSorted = props.decks.sort(function (a, b) {
-        return a.cards.length - b.cards.length;
-      });
-      setDeckOrder(mostSorted);
-    }
-    if (props.currentSort === "most terms") {
-      // console.log("sorting LEAST");
-      const leastSorted = props.decks.sort(function (a, b) {
-        return b.cards.length - a.cards.length;
-      });
-      setDeckOrder(leastSorted);
-    }
-
-    setDeckOrder(() => {
-      return props.decks.filter((deck) => {
-        return deck.title.toLowerCase().includes(props.searchStr.toLowerCase());
-      });
-    });
-  }, [props.currentSort, props.decks, props.searchStr]);
-
-  // useEffect(() => {
-  //   console.log(props.searchStr);
-  //   setDeckOrder(() => {
-  //     return props.decks.filter((deck) => {
-  //       return deck.title.toLowerCase().includes(props.searchStr.toLowerCase());
-  //     });
-  //   });
-  // }, [props.searchStr, props.currentSort, props.decks]);
 
   const lComponent = (
     <ReactLoading
