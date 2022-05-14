@@ -21,18 +21,6 @@ const CreatePage = () => {
   const [formMode, setFormMode] = useState<string>("CREATE");
 
   useEffect(() => {
-    console.log(configDeckState);
-  }, [configDeckState]);
-
-  // useEffect(() => {
-  //   if (formMode === "CREATE") {
-  //     const timeElapsed = Date.now();
-  //     const today = new Date(timeElapsed);
-  //     configDeckDispatch({ type: "ADD_CREATION_DATE", payload: today });
-  //   }
-  // }, [formMode]);
-
-  useEffect(() => {
     if (myDecksId) {
       setFormMode("EDIT");
       const deck = authState.myDecks.find((deck: any) => {

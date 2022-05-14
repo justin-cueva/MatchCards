@@ -21,12 +21,7 @@ const DeckActions = ({ setDeleteModalIsOpen, deckId }: Props) => {
         Delete
       </button>
       <button
-        onClick={() => {
-          navigate(`/myDecks/edit/${deckId}`);
-          // log the ID of the deck
-          console.log("editing deck");
-          // navigate to /myDecks/edit/:deckId
-        }}
+        onClick={() => navigate(`/myDecks/edit/${deckId}`)}
         type="button"
         className="edit"
       >
