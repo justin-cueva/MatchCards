@@ -1,9 +1,10 @@
 import { useReducer, useEffect, useContext, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 import SingleCard from "./SingleCard";
 import AddCardBtn from "./AddCardBtn";
 import { AuthContext as Context } from "../App";
+import { Deck } from "../../reducers/authReducer";
 import {
   configDeckReducer,
   newDeckInitState,
@@ -12,6 +13,7 @@ import "../../styles/create.css";
 
 const CreatePage = () => {
   const { myDecksId } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { authState } = useContext(Context);
   const [configDeckState, configDeckDispatch] = useReducer(
@@ -21,21 +23,28 @@ const CreatePage = () => {
   const [formMode, setFormMode] = useState<string>("CREATE");
 
   useEffect(() => {
-    if (myDecksId) {
+    console.log(location.pathname);
+    // if the deck that we are trying to edit does not exist at the moment then navigate to /myDecks
+  }, []);
+
+  useEffect(() => {
+    const deckIsInAuthState = authState.myDecks.some((deck: Deck) => {
+      return deck.key === myDecksId;
+    });
+
+    if (!deckIsInAuthState && location.pathname.includes("/myDecks/edit")) {
+      navigate("/myDecks");
+    }
+    if (location.pathname.includes("/myDecks/edit")) {
       setFormMode("EDIT");
       const deck = authState.myDecks.find((deck: any) => {
         return deck.key === myDecksId;
       });
       configDeckDispatch({ type: "EDIT_DECK", payload: { deck } });
-      // trying to EDIT a deck
-      // configDispatch({type: "EDIT_DECK", payload: {deckId: myDecksId}})
     }
-    if (!myDecksId) {
+    if (location.pathname === "/create") {
       setFormMode("CREATE");
       configDeckDispatch({ type: "CREATE_DECK" });
-      // dispatch action to clear all inputs
-      // trying to CREATE a deck
-      // do nothing because just bc
     }
   }, [myDecksId]);
 
@@ -71,8 +80,6 @@ const CreatePage = () => {
       });
       if (notFinished)
         throw new Error("Add a term and definition to all your cards");
-
-      // console.log(configDeckState);
 
       await fetch(endPoint, {
         method: method,
