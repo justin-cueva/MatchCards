@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import { useEffect, useState } from "react";
 
 type Props = {
   setCurrentSort: React.Dispatch<React.SetStateAction<string>>;
   currentSort: string;
+  setSearchStr: React.Dispatch<React.SetStateAction<string>>;
+  searchStr: string;
 };
 
 const options = [
@@ -13,7 +14,7 @@ const options = [
   { name: "least terms" },
 ];
 
-const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
+const SortDecksInputs = (props: Props) => {
   const [sortIsOpen, setSortIsOpen] = useState<boolean>(false);
 
   return (
@@ -23,7 +24,7 @@ const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
         type="button"
         onClick={() => setSortIsOpen((prev) => !prev)}
       >
-        {currentSort}
+        {props.currentSort}
         {sortIsOpen && (
           <div className="sort-modal">
             {options.map(({ name }, index) => {
@@ -31,7 +32,7 @@ const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
                 <div
                   key={index}
                   className="option"
-                  onClick={() => setCurrentSort(name)}
+                  onClick={() => props.setCurrentSort(name)}
                 >
                   {name}
                 </div>
@@ -41,7 +42,12 @@ const SortDecksInputs = ({ setCurrentSort, currentSort }: Props) => {
         )}
       </button>
 
-      <input className="input--find-decks" placeholder="Search your sets" />
+      <input
+        className="input--find-decks"
+        placeholder="Search your decks"
+        value={props.searchStr}
+        onChange={(e) => props.setSearchStr(e.target.value)}
+      />
     </div>
   );
 };

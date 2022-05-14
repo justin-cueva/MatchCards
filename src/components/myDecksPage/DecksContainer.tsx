@@ -12,16 +12,17 @@ type Props = {
   decks: Deck[];
   decksAreLoading: boolean;
   currentSort: string;
+  searchStr: string;
 };
 
-const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
+const DecksContainer = (props: Props) => {
   const { authState, authDispatch } = useContext(Context);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const [deckOrder, setDeckOrder] = useState<Deck[]>(decks);
+  const [deckOrder, setDeckOrder] = useState<Deck[]>(props.decks);
 
   useEffect(() => {
-    if (currentSort === "newest") {
-      const newestSorted = decks
+    if (props.currentSort === "oldest") {
+      const newestSorted = props.decks
         .sort(function (a, b) {
           const aDay = Number(a.date?.split("-")[1]);
           const bDay = Number(b.date?.split("-")[1]);
@@ -39,8 +40,8 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
         });
       setDeckOrder(newestSorted);
     }
-    if (currentSort === "oldest") {
-      const oldestSorted = decks
+    if (props.currentSort === "newest") {
+      const oldestSorted = props.decks
         .sort(function (a, b) {
           const aDay = Number(a.date?.split("-")[1]);
           const bDay = Number(b.date?.split("-")[1]);
@@ -58,21 +59,36 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
         });
       setDeckOrder(oldestSorted);
     }
-    if (currentSort === "most terms") {
+    if (props.currentSort === "least terms") {
       // console.log("sorting MOST");
-      const mostSorted = decks.sort(function (a, b) {
+      const mostSorted = props.decks.sort(function (a, b) {
         return a.cards.length - b.cards.length;
       });
       setDeckOrder(mostSorted);
     }
-    if (currentSort === "least terms") {
+    if (props.currentSort === "most terms") {
       // console.log("sorting LEAST");
-      const leastSorted = decks.sort(function (a, b) {
+      const leastSorted = props.decks.sort(function (a, b) {
         return b.cards.length - a.cards.length;
       });
       setDeckOrder(leastSorted);
     }
-  }, [currentSort, decks]);
+
+    setDeckOrder(() => {
+      return props.decks.filter((deck) => {
+        return deck.title.toLowerCase().includes(props.searchStr.toLowerCase());
+      });
+    });
+  }, [props.currentSort, props.decks, props.searchStr]);
+
+  // useEffect(() => {
+  //   console.log(props.searchStr);
+  //   setDeckOrder(() => {
+  //     return props.decks.filter((deck) => {
+  //       return deck.title.toLowerCase().includes(props.searchStr.toLowerCase());
+  //     });
+  //   });
+  // }, [props.searchStr, props.currentSort, props.decks]);
 
   const lComponent = (
     <ReactLoading
@@ -98,11 +114,11 @@ const DecksContainer = ({ decks, decksAreLoading, currentSort }: Props) => {
   return (
     <Fragment>
       <div className="container--my-decks">
-        {decks.length === 0 && !decksAreLoading && (
+        {props.decks.length === 0 && !props.decksAreLoading && (
           <Message text="You have no decks created" />
         )}
-        {decksAreLoading && lComponent}
-        {!decksAreLoading &&
+        {props.decksAreLoading && lComponent}
+        {!props.decksAreLoading &&
           deckOrder.map(({ cards, title, key, date }, index) => {
             return (
               <div key={index} className="container--decks-of-a-date">
