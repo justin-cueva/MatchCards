@@ -11,7 +11,7 @@ export type Deck = {
   key: string;
 };
 
-type DefaultStateType = {
+export type DefaultStateType = {
   isLoggedIn: boolean;
   userId: string;
   myDecks: Deck[];

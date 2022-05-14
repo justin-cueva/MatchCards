@@ -9,6 +9,7 @@ const MyDecks = () => {
   const { authDispatch, authState } = useContext(Context);
   const [decksAreLoading, setDecksAreLoading] = useState<boolean>(false);
   const [currentSort, setCurrentSort] = useState<string>("most terms");
+  const [searchStr, setSearchStr] = useState<string>("");
 
   const getDecks = async () => {
     // set loading
@@ -39,8 +40,11 @@ const MyDecks = () => {
       <SortDecksInputs
         setCurrentSort={setCurrentSort}
         currentSort={currentSort}
+        setSearchStr={setSearchStr}
+        searchStr={searchStr}
       />
       <DecksContainer
+        searchStr={searchStr}
         currentSort={currentSort}
         decksAreLoading={decksAreLoading}
         decks={authState.myDecks}

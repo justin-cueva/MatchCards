@@ -51,7 +51,6 @@ export const configDeckReducer = (
 ) => {
   switch (action.type) {
     case "EDIT_DECK":
-      console.log(action.payload.deck);
       return { ...action.payload.deck };
     case "CREATE_DECK":
       return { ...newDeckInitState };

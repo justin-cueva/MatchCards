@@ -6,7 +6,6 @@ import { ImCross } from "react-icons/im";
 import "../../styles/reusables/menuModal.css";
 
 export const links = [
-  { name: "Home", to: "/" },
   { name: "Create", to: "/create" },
   { name: "My Decks", to: "/myDecks" },
   { name: "Auth", to: "/auth" },
