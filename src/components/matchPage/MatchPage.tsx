@@ -5,11 +5,11 @@ import PreGame from "./PreGame";
 const MatchPage = () => {
   const [gameStatus, setGameStatus] = useState<string>("PREGAME");
 
-  // useEffect(() => {
-  //   return () => {
-  //     setGameStatus("PREGAME");
-  //   };
-  // });
+  useEffect(() => {
+    return () => {
+      setGameStatus("PREGAME");
+    };
+  }, []);
 
   return (
     <Fragment>
