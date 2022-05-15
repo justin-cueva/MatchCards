@@ -53,6 +53,13 @@
 
 .my-decks__deck h4 {
   font-size: 2rem;
+  transition: all 200ms ease;
+}
+
+.my-decks__deck h4:hover,
+.my-decks__deck h4:active {
+  color: #ffba08;
+  cursor: pointer;
 }
 
 .deck__actions {

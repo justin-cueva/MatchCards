@@ -23,11 +23,6 @@ const CreatePage = () => {
   const [formMode, setFormMode] = useState<string>("CREATE");
 
   useEffect(() => {
-    console.log(location.pathname);
-    // if the deck that we are trying to edit does not exist at the moment then navigate to /myDecks
-  }, []);
-
-  useEffect(() => {
     const deckIsInAuthState = authState.myDecks.some((deck: Deck) => {
       return deck.key === myDecksId;
     });
