@@ -1,0 +1,25 @@
+.page--pre-game {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 4rem 2rem 0 2rem;
+}
+
+.page--pre-game h1 {
+  font-size: 2.8rem;
+  line-height: 1.05;
+}
+
+.page--pre-game span {
+  font-size: 1.6rem;
+}
+
+.page--pre-game button {
+  background-color: #ffba08;
+  border-radius: 4px;
+  padding: 1.6rem 3.2rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+}

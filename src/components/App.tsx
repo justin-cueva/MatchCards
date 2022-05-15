@@ -6,6 +6,7 @@ import authReducer, {
 } from "../reducers/authReducer";
 import Header from "./reusables/Header";
 import Home from "./homePage/Home";
+import MatchPage from "./matchPage/MatchPage";
 import ConfigDeckPage from "./createPage/CreatePage";
 import MyDecks from "./myDecksPage/MyDecks";
 import AuthPage from "./authPage/AuthPage";
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/" element={<Home authState={authState} />} />
             <Route path="/create" element={<ConfigDeckPage />} />
             <Route path="/myDecks" element={<MyDecks />} />
+            <Route path="/myDecks/match/:myDecksId" element={<MatchPage />} />
             <Route
               path="/myDecks/edit/:myDecksId"
               element={<ConfigDeckPage />}
