@@ -20,7 +20,20 @@ const Matching = () => {
           <span>50.2</span>
         </div>
       </div>
-      <div className="matching__cards"></div>
+      <div className="matching__cards">
+        <div className={`matching__card ${"term"}`}>term</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"term"}`}>term</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"term"}`}>term</div>
+        <div className={`matching__card ${"term"}`}>term</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"term"}`}>term</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"definition"}`}>definition</div>
+        <div className={`matching__card ${"term"}`}>term</div>
+      </div>
     </div>
   );
 };

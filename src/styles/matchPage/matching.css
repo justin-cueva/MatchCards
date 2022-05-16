@@ -1,8 +1,14 @@
+.page--matching {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .matching__stats {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 4rem 0;
+  padding: 2rem 0 3rem 0;
 }
 
 .matching__header {
@@ -30,4 +36,35 @@
 
 .matching__stats .field span {
   font-size: 3rem;
+}
+
+/* MATCHING CARDS */
+
+.matching__cards {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 25%);
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.matching__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* this needs to change later */
+  /* height: 8rem; */
+  border-radius: 4px;
+  border: 2px solid #999;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.matching__card.term {
+  background-color: rgb(255, 255, 255);
+}
+
+.matching__card.definition {
+  background-color: rgb(240, 240, 240);
 }
