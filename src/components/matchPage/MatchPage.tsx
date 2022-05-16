@@ -1,22 +1,34 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, useReducer } from "react";
+
+import {
+  matchingGameReducer,
+  defaultState as matchingGameDefaultState,
+} from "../../reducers/matchingGameReducer";
 
 import PreGame from "./PreGame";
 import Matching from "./Matching";
 
 const MatchPage = () => {
-  const [gameStatus, setGameStatus] = useState<string>("PREGAME");
+  const [matchingGameState, matchingGameDispatch] = useReducer(
+    matchingGameReducer,
+    matchingGameDefaultState
+  );
 
   useEffect(() => {
     return () => {
-      setGameStatus("PREGAME");
+      matchingGameDispatch({ type: "CHANGE_GAME_STATUS", payload: "PREGAME" });
     };
   }, []);
 
   return (
     <Fragment>
-      {gameStatus === "PREGAME" && <PreGame setGameStatus={setGameStatus} />}
-      {gameStatus === "MATCHING" && <Matching />}
-      {gameStatus === "SUMMARY" && <div>Summary</div>}
+      {matchingGameState.gameStatus === "PREGAME" && (
+        <PreGame matchingGameDispatch={matchingGameDispatch} />
+      )}
+      {matchingGameState.gameStatus === "MATCHING" && (
+        <Matching matchingGameDispatch={matchingGameDispatch} />
+      )}
+      {matchingGameState.gameStatus === "SUMMARY" && <div>Summary</div>}
     </Fragment>
   );
 };

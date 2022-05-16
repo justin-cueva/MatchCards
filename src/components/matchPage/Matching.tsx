@@ -1,12 +1,25 @@
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
+import { Actions } from "../../reducers/matchingGameReducer";
 import "../../styles/matchPage/matching.css";
 
-const Matching = () => {
+type Props = {
+  matchingGameDispatch: React.Dispatch<Actions>;
+};
+
+const Matching = ({ matchingGameDispatch }: Props) => {
   return (
     <div className="page--matching">
       <div className="matching__header">
-        <span className="icon--arrow-left">
+        <span
+          className="icon--arrow-left"
+          onClick={() => {
+            matchingGameDispatch({
+              type: "CHANGE_GAME_STATUS",
+              payload: "PREGAME",
+            });
+          }}
+        >
           <AiOutlineArrowLeft />
         </span>
       </div>
