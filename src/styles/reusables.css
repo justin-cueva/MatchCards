@@ -1,3 +1,7 @@
+.col-primary {
+  color: #ffba08;
+}
+
 .page {
   padding: 0 1rem;
   display: flex;

@@ -1,6 +1,7 @@
 import { useEffect, useState, Fragment } from "react";
 
 import PreGame from "./PreGame";
+import Matching from "./Matching";
 
 const MatchPage = () => {
   const [gameStatus, setGameStatus] = useState<string>("PREGAME");
@@ -14,7 +15,7 @@ const MatchPage = () => {
   return (
     <Fragment>
       {gameStatus === "PREGAME" && <PreGame setGameStatus={setGameStatus} />}
-      {gameStatus === "MATCHING" && <div>MatchPage</div>}
+      {gameStatus === "MATCHING" && <Matching />}
       {gameStatus === "SUMMARY" && <div>Summary</div>}
     </Fragment>
   );
