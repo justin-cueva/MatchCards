@@ -9,11 +9,14 @@ import "../../styles/reusables/header.css";
 
 const Header = () => {
   const { pathname } = useLocation();
+
   const authContext = useContext(context);
   const navigate = useNavigate();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const visibility = pathname === "/auth" ? "invisible" : "";
+
+  if (pathname.includes("/myDecks/match")) return null;
 
   return (
     <Fragment>

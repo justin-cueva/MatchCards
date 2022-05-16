@@ -1,4 +1,5 @@
 import { useContext, useState, Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 
 import DeleteDeckModal from "./DeleteDeckModal";
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const DecksContainer = (props: Props) => {
+  const navigate = useNavigate();
   const { deckOrder } = useSortAndFilter(props);
   const { authState, authDispatch } = useContext(Context);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -65,7 +67,14 @@ const DecksContainer = (props: Props) => {
                 <div className="my-decks__deck">
                   <div>
                     <span>{cards.length} terms</span>
-                    <h4>{title}</h4>
+                    <h4
+                      onClick={() => {
+                        navigate(`/myDecks/match/${key}`);
+                        // console.log("navigating to /myDecks/match/:deckId");
+                      }}
+                    >
+                      {title}
+                    </h4>
                   </div>
                   <DeckActions
                     setDeleteModalIsOpen={setDeleteModalIsOpen}
