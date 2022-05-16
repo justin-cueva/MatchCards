@@ -2,7 +2,7 @@
 A web app where you can create, edit, and delete a deck of cards.\
 You can also learn your terms and definitions by matching them to each other.
 
-* link to live site: coming soon...
+* link to live site: https://match-cards-by-justin.netlify.app/
 * If you don't want to create an account you can log in with
 * email: test@test.com 
 * pass: 123abc
