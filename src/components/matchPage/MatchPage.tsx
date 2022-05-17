@@ -1,5 +1,8 @@
-import { useEffect, useState, Fragment, useReducer } from "react";
+import { useEffect, useState, Fragment, useReducer, useContext } from "react";
+import { useParams } from "react-router-dom";
 
+import { AuthContext } from "../App";
+import { Deck } from "../../reducers/authReducer";
 import {
   matchingGameReducer,
   defaultState as matchingGameDefaultState,
@@ -9,10 +12,25 @@ import PreGame from "./PreGame";
 import Matching from "./Matching";
 
 const MatchPage = () => {
+  const params = useParams();
+  const authContext = useContext(AuthContext);
   const [matchingGameState, matchingGameDispatch] = useReducer(
     matchingGameReducer,
     matchingGameDefaultState
   );
+
+  useEffect(() => console.log(matchingGameState), [matchingGameState]);
+
+  useEffect(() => {
+    const deck = authContext.authState.myDecks.find((deck: Deck) => {
+      return deck.key === params.myDecksId;
+    });
+
+    matchingGameDispatch({
+      type: "GET_DECK",
+      payload: deck,
+    });
+  }, []);
 
   useEffect(() => {
     return () => {

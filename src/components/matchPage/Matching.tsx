@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { Actions } from "../../reducers/matchingGameReducer";
@@ -8,18 +9,12 @@ type Props = {
 };
 
 const Matching = ({ matchingGameDispatch }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className="page--matching">
       <div className="matching__header">
-        <span
-          className="icon--arrow-left"
-          onClick={() => {
-            matchingGameDispatch({
-              type: "CHANGE_GAME_STATUS",
-              payload: "PREGAME",
-            });
-          }}
-        >
+        <span className="icon--arrow-left" onClick={() => navigate("/myDecks")}>
           <AiOutlineArrowLeft />
         </span>
       </div>
