@@ -6,7 +6,8 @@ export type Actions =
   | { type: "CHANGE_GAME_STATUS"; payload: string }
   | { type: "GET_DECK"; payload: Deck }
   | { type: "SORT_CARD_SIDES"; payload: Card[] }
-  | { type: "ADD_TIME" };
+  | { type: "ADD_TIME" }
+  | { type: "SUCCESS"; payload: number };
 
 export const defaultState = {
   gameStatus: "PREGAME",
@@ -33,6 +34,12 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "SUCCESS":
+      const newCardSides = state.cardSides.filter((cardSide) => {
+        return cardSide.number !== action.payload;
+      });
+
+      return { ...state, cardSides: newCardSides };
     case "ADD_TIME":
       return { ...state, stopwatch: state.stopwatch + 0.1 };
     case "SORT_CARD_SIDES":

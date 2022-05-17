@@ -14,6 +14,26 @@ type Props = {
 const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
 
+  const [firstClickedCard, setFirstClickedCard] = useState<any>(null);
+  const [secondClickedCard, setSecondClickedCard] = useState<any>(null);
+
+  useEffect(() => {
+    if (
+      firstClickedCard?.number === secondClickedCard?.number &&
+      secondClickedCard &&
+      firstClickedCard
+    ) {
+      matchingGameDispatch({
+        type: "SUCCESS",
+        payload: firstClickedCard?.number,
+      });
+      setFirstClickedCard(null);
+      setSecondClickedCard(null);
+    }
+    // if ()
+    // if first clicked === the number of second clicked then remove the side cards from state
+  }, [secondClickedCard]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       matchingGameDispatch({ type: "ADD_TIME" });
@@ -42,8 +62,48 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       </div>
       <div className="matching__cards">
         {matchingGameState.cardSides.map((side, index) => {
+          const clickedStyle =
+            side.number === firstClickedCard?.number &&
+            side.type === firstClickedCard?.type
+              ? "clicked"
+              : "";
+
+          const secondClickedStyle =
+            side.number === secondClickedCard?.number &&
+            side.type === secondClickedCard?.type
+              ? "clicked"
+              : "";
+
           return (
-            <div key={index} className={`matching__card ${side.type}`}>
+            <div
+              key={index}
+              className={`matching__card  ${clickedStyle} ${secondClickedStyle}`}
+              onClick={() => {
+                const clickedSameCart =
+                  firstClickedCard?.number === side.number &&
+                  firstClickedCard?.type === side.type;
+
+                setFirstClickedCard((prevState: any) => {
+                  if (
+                    prevState?.number === side.number &&
+                    prevState?.type === side.type
+                  ) {
+                    console.log("RAN");
+                    return null;
+                  } else if (!prevState) {
+                    return { number: side.number, type: side.type };
+                  } else {
+                    return prevState;
+                  }
+                });
+
+                if (firstClickedCard && !clickedSameCart)
+                  setSecondClickedCard(() => {
+                    console.log("SECOND");
+                    return { number: side.number, type: side.type };
+                  });
+              }}
+            >
               {side.text}
             </div>
           );

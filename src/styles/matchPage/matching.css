@@ -54,8 +54,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* this needs to change later */
-  /* height: 8rem; */
+  background-color: #eee;
   border-radius: 4px;
   border: 2px solid #999;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
@@ -67,4 +66,9 @@
 
 .matching__card.definition {
   background-color: rgb(220, 220, 220);
+}
+
+.matching__card.clicked {
+  background-color: #fff1ce;
+  border: 2px solid #ffc839;
 }
