@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
+import { StateType } from "../../reducers/matchingGameReducer";
 import { Actions } from "../../reducers/matchingGameReducer";
 import "../../styles/matchPage/matching.css";
 
 type Props = {
   matchingGameDispatch: React.Dispatch<Actions>;
+  matchingGameState: StateType;
 };
 
-const Matching = ({ matchingGameDispatch }: Props) => {
+const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -29,18 +31,11 @@ const Matching = ({ matchingGameDispatch }: Props) => {
         </div>
       </div>
       <div className="matching__cards">
-        <div className={`matching__card ${"term"}`}>term</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"term"}`}>term</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"term"}`}>term</div>
-        <div className={`matching__card ${"term"}`}>term</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"term"}`}>term</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"definition"}`}>definition</div>
-        <div className={`matching__card ${"term"}`}>term</div>
+        {matchingGameState.cardSides.map((side) => {
+          return (
+            <div className={`matching__card ${side.type}`}>{side.text}</div>
+          );
+        })}
       </div>
     </div>
   );
