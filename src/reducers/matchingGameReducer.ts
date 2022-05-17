@@ -5,12 +5,14 @@ type Card = { definition: string; term: string; number: number };
 export type Actions =
   | { type: "CHANGE_GAME_STATUS"; payload: string }
   | { type: "GET_DECK"; payload: Deck }
-  | { type: "SORT_CARD_SIDES"; payload: Card[] };
+  | { type: "SORT_CARD_SIDES"; payload: Card[] }
+  | { type: "ADD_TIME" };
 
 export const defaultState = {
   gameStatus: "PREGAME",
   deck: null,
   cardSides: [],
+  stopwatch: 0,
 };
 
 type CardSide = {
@@ -23,6 +25,7 @@ export type StateType = {
   gameStatus: string;
   deck: Deck | null;
   cardSides: CardSide[];
+  stopwatch: number;
 };
 
 export const matchingGameReducer = (
@@ -30,6 +33,8 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "ADD_TIME":
+      return { ...state, stopwatch: state.stopwatch + 0.1 };
     case "SORT_CARD_SIDES":
       const cardDefinitionsArr = action.payload.map((card) => {
         return {

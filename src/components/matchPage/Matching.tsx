@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
@@ -13,6 +14,13 @@ type Props = {
 const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      matchingGameDispatch({ type: "ADD_TIME" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [matchingGameState.stopwatch]);
+
   return (
     <div className="page--matching">
       <div className="matching__header">
@@ -23,7 +31,9 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       <div className="matching__stats">
         <div className="field">
           <label>TIME</label>
-          <span className="col-primary">24.8</span>
+          <span className="col-primary">
+            {matchingGameState.stopwatch.toFixed(1)}
+          </span>
         </div>
         <div className="field">
           <label>BEST TIME</label>
@@ -31,9 +41,11 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
         </div>
       </div>
       <div className="matching__cards">
-        {matchingGameState.cardSides.map((side) => {
+        {matchingGameState.cardSides.map((side, index) => {
           return (
-            <div className={`matching__card ${side.type}`}>{side.text}</div>
+            <div key={index} className={`matching__card ${side.type}`}>
+              {side.text}
+            </div>
           );
         })}
       </div>
