@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 
+import { Actions } from "../../reducers/matchingGameReducer";
 import "../../styles/matchPage/preGame.css";
 
 type Props = {
-  setGameStatus: React.Dispatch<React.SetStateAction<string>>;
+  matchingGameDispatch: React.Dispatch<Actions>;
 };
 
-const PreGame = ({ setGameStatus }: Props) => {
+const PreGame = ({ matchingGameDispatch }: Props) => {
   return (
     <Fragment>
       <div className="overlay--pre-game" />
@@ -16,7 +17,16 @@ const PreGame = ({ setGameStatus }: Props) => {
           Match all of the terms with their definitions. If you pick the wrong
           match extra time will be added.
         </span>
-        <button onClick={() => setGameStatus("MATCHING")}>Start game</button>
+        <button
+          onClick={() => {
+            matchingGameDispatch({
+              type: "CHANGE_GAME_STATUS",
+              payload: "MATCHING",
+            });
+          }}
+        >
+          Start game
+        </button>
       </div>
     </Fragment>
   );

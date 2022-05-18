@@ -119,7 +119,7 @@ const CreatePage = () => {
           />
         );
       })}
-      {numberOfCards < 10 && <AddCardBtn dispatch={configDeckDispatch} />}
+      {numberOfCards < 6 && <AddCardBtn dispatch={configDeckDispatch} />}
       <button className="btn-create--bottom  btn--create">
         {formMode === "CREATE" ? "Create" : "Save"}
       </button>
