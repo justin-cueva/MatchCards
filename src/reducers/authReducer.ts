@@ -9,6 +9,7 @@ export type Deck = {
   title: string;
   date?: string;
   key: string;
+  highScore: null | number;
 };
 
 export type DefaultStateType = {
@@ -43,6 +44,7 @@ export default (
       const x = Object.entries(action.payload).map((ent) => {
         return { ...ent[1], key: ent[0] };
       });
+      console.log(x);
 
       return { ...state, myDecks: x };
     case "LOGIN":

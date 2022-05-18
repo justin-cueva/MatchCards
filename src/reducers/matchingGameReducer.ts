@@ -9,7 +9,8 @@ export type Actions =
   | { type: "FIRST_CARD"; payload: { number: number; type: string } }
   | { type: "SECOND_CARD"; payload: { number: number; type: string } }
   | { type: "WRONG" }
-  | { type: "ADD_4_SECS" };
+  | { type: "ADD_4_SECS" }
+  | { type: "FINISHED_GAME" };
 
 type Card = { definition: string; term: string; number: number };
 
@@ -44,6 +45,8 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "FINISHED_GAME":
+      return { ...defaultState };
     case "ADD_4_SECS":
       return { ...state, stopwatch: state.stopwatch + 4 };
     case "WRONG":
@@ -122,6 +125,7 @@ export const matchingGameReducer = (
 
       return { ...state, cardSides: allHalfCardsShuffled };
     case "GET_DECK":
+      console.log(action.payload);
       return { ...state, deck: action.payload };
     case "CHANGE_GAME_STATUS":
       return { ...state, gameStatus: action.payload };

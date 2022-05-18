@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { StateType } from "../../reducers/matchingGameReducer";
@@ -13,6 +13,28 @@ type Props = {
 
 const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
+  const { myDecksId } = useParams();
+
+  const putHighScore = async (time: number) => {
+    const userId = localStorage.getItem("userId");
+    await fetch(
+      `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${userId}/${myDecksId}/highScore.json`,
+      { method: "PUT", body: JSON.stringify(time.toFixed(1)) }
+    );
+  };
+
+  useEffect(() => {
+    if (
+      matchingGameState.stopwatch < Number(matchingGameState.deck?.highScore) &&
+      matchingGameState.cardSides.length === 0
+    ) {
+      putHighScore(matchingGameState.stopwatch);
+    }
+    if (matchingGameState.cardSides.length === 0) {
+      matchingGameDispatch({ type: "FINISHED_GAME" });
+      navigate("/myDecks");
+    }
+  }, [matchingGameState.cardSides]);
 
   useEffect(() => {
     const { firstClickedCard, secondClickedCard } = matchingGameState;
@@ -77,7 +99,11 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
         </div>
         <div className="field">
           <label>BEST TIME</label>
-          <span>50.2</span>
+          <span>
+            {matchingGameState.deck?.highScore
+              ? matchingGameState.deck?.highScore
+              : "N/A"}
+          </span>
         </div>
       </div>
       <div className="matching__cards">

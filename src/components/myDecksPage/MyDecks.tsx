@@ -25,6 +25,7 @@ const MyDecks = () => {
       `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${userId}.json`
     );
     const data = await response.json();
+    // console.log(data);
 
     authDispatch({ type: "GOT_DECKS", payload: data });
 

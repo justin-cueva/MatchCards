@@ -22,6 +22,7 @@ const year = today.getFullYear();
 const initDate = `${month + 1}-${day}-${year}`;
 
 export const newDeckInitState = {
+  highScore: null,
   date: initDate,
   key: "",
   title: "",
@@ -43,6 +44,7 @@ type ConfigDeckState = {
   title: string;
   cards: Card[];
   date?: string;
+  highScore: null;
 };
 
 export const configDeckReducer = (
