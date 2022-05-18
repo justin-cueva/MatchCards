@@ -8,7 +8,8 @@ export type Actions =
   | { type: "SUCCESS"; payload: number }
   | { type: "FIRST_CARD"; payload: { number: number; type: string } }
   | { type: "SECOND_CARD"; payload: { number: number; type: string } }
-  | { type: "WRONG" };
+  | { type: "WRONG" }
+  | { type: "ADD_4_SECS" };
 
 type Card = { definition: string; term: string; number: number };
 
@@ -43,6 +44,8 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "ADD_4_SECS":
+      return { ...state, stopwatch: state.stopwatch + 4 };
     case "WRONG":
       return {
         ...state,

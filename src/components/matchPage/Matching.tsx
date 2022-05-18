@@ -21,9 +21,10 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       firstClickedCard &&
       secondClickedCard
     ) {
+      matchingGameDispatch({ type: "ADD_4_SECS" });
       setTimeout(() => {
         matchingGameDispatch({ type: "WRONG" });
-      }, 1500);
+      }, 1000);
     }
   }, [matchingGameState.firstClickedCard, matchingGameState.secondClickedCard]);
 
@@ -48,6 +49,14 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
     return () => clearTimeout(timer);
   }, [matchingGameState.stopwatch]);
 
+  const wrongGuess =
+    matchingGameState.firstClickedCard?.number !==
+      matchingGameState.secondClickedCard?.number &&
+    matchingGameState.firstClickedCard &&
+    matchingGameState.secondClickedCard
+      ? true
+      : false;
+
   return (
     <div className="page--matching">
       <div className="matching__header">
@@ -58,7 +67,7 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       <div className="matching__stats">
         <div className="field">
           <label>TIME</label>
-          <span className="col-primary">
+          <span className={`col-primary ${wrongGuess ? "shake-ani" : ""}`}>
             {matchingGameState.stopwatch.toFixed(1)}
           </span>
         </div>
