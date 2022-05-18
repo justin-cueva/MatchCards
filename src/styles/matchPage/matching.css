@@ -72,3 +72,8 @@
   background-color: #fff1ce;
   border: 2px solid #ffc839;
 }
+
+.matching__card.wrong {
+  background-color: #ffcccc;
+  border: 2px solid #ff0000;
+}

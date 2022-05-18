@@ -15,8 +15,16 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(matchingGameState.firstClickedCard);
-    console.log(matchingGameState.secondClickedCard);
+    const { firstClickedCard, secondClickedCard } = matchingGameState;
+    if (
+      firstClickedCard?.number !== secondClickedCard?.number &&
+      firstClickedCard &&
+      secondClickedCard
+    ) {
+      setTimeout(() => {
+        matchingGameDispatch({ type: "WRONG" });
+      }, 1500);
+    }
   }, [matchingGameState.firstClickedCard, matchingGameState.secondClickedCard]);
 
   useEffect(() => {
@@ -28,7 +36,7 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
     ) {
       matchingGameDispatch({
         type: "SUCCESS",
-        payload: matchingGameState.firstClickedCard?.number,
+        payload: matchingGameState?.firstClickedCard?.number,
       });
     }
   }, [matchingGameState.secondClickedCard]);
@@ -61,6 +69,11 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       </div>
       <div className="matching__cards">
         {matchingGameState.cardSides.map((side, index) => {
+          const bothCardsAreSelected =
+            matchingGameState.secondClickedCard &&
+            matchingGameState.secondClickedCard
+              ? true
+              : false;
           const clickedStyle =
             side.number === matchingGameState.firstClickedCard?.number &&
             side.type === matchingGameState.firstClickedCard?.type
@@ -73,10 +86,32 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
               ? "clicked"
               : "";
 
+          const guessedWrong =
+            matchingGameState.firstClickedCard?.number !==
+            matchingGameState.secondClickedCard?.number
+              ? true
+              : false;
+
+          const wrongMatchClass =
+            bothCardsAreSelected &&
+            guessedWrong &&
+            side.number === matchingGameState.firstClickedCard?.number &&
+            side.type === matchingGameState.firstClickedCard?.type
+              ? "wrong"
+              : "";
+
+          const wrongMatchClass2 =
+            bothCardsAreSelected &&
+            guessedWrong &&
+            side.number === matchingGameState.secondClickedCard?.number &&
+            side.type === matchingGameState.secondClickedCard?.type
+              ? "wrong"
+              : "";
+
           return (
             <div
               key={index}
-              className={`matching__card  ${clickedStyle} ${secondClickedStyle}`}
+              className={`matching__card ${wrongMatchClass2} ${wrongMatchClass}  ${clickedStyle} ${secondClickedStyle}`}
               onClick={() => {
                 const clickedSameCart =
                   matchingGameState.firstClickedCard?.number === side.number &&

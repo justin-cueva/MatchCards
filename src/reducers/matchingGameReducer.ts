@@ -7,7 +7,8 @@ export type Actions =
   | { type: "ADD_TIME" }
   | { type: "SUCCESS"; payload: number }
   | { type: "FIRST_CARD"; payload: { number: number; type: string } }
-  | { type: "SECOND_CARD"; payload: { number: number; type: string } };
+  | { type: "SECOND_CARD"; payload: { number: number; type: string } }
+  | { type: "WRONG" };
 
 type Card = { definition: string; term: string; number: number };
 
@@ -42,6 +43,12 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "WRONG":
+      return {
+        ...state,
+        secondClickedCard: null,
+        firstClickedCard: null,
+      };
     case "SECOND_CARD":
       return { ...state, secondClickedCard: action.payload };
     case "FIRST_CARD":
