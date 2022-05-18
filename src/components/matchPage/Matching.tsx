@@ -35,10 +35,14 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       matchingGameState.secondClickedCard &&
       matchingGameState.firstClickedCard
     ) {
-      matchingGameDispatch({
-        type: "SUCCESS",
-        payload: matchingGameState?.firstClickedCard?.number,
-      });
+      setTimeout(() => {
+        matchingGameDispatch({
+          type: "SUCCESS",
+          payload: matchingGameState?.firstClickedCard?.number
+            ? matchingGameState?.firstClickedCard?.number
+            : 0,
+        });
+      }, 500);
     }
   }, [matchingGameState.secondClickedCard]);
 
@@ -101,6 +105,30 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
               ? true
               : false;
 
+          const correctGuess =
+            matchingGameState.firstClickedCard?.number ===
+              matchingGameState.secondClickedCard?.number &&
+            matchingGameState.firstClickedCard &&
+            matchingGameState.secondClickedCard &&
+            side.number === matchingGameState.firstClickedCard?.number
+              ? "success"
+              : "";
+
+          // const correctMatchClass1 =
+          //   bothCardsAreSelected &&
+          //   correctGuess &&
+          //   side.number === matchingGameState.firstClickedCard?.number &&
+          //   side.type === matchingGameState.firstClickedCard?.type
+          //     ? "correct"
+          //     : "";
+          // const correctMatchClass2 =
+          //   bothCardsAreSelected &&
+          //   correctGuess &&
+          //   side.number === matchingGameState.secondClickedCard?.number &&
+          //   side.type === matchingGameState.secondClickedCard?.type
+          //     ? "correct"
+          //     : "";
+
           const wrongMatchClass =
             bothCardsAreSelected &&
             guessedWrong &&
@@ -120,7 +148,7 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
           return (
             <div
               key={index}
-              className={`matching__card ${wrongMatchClass2} ${wrongMatchClass}  ${clickedStyle} ${secondClickedStyle}`}
+              className={`matching__card ${correctGuess} ${wrongMatchClass2} ${wrongMatchClass}  ${clickedStyle} ${secondClickedStyle}`}
               onClick={() => {
                 const clickedSameCart =
                   matchingGameState.firstClickedCard?.number === side.number &&
