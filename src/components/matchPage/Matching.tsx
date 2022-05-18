@@ -16,21 +16,26 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const { myDecksId } = useParams();
 
   const putHighScore = async (time: number) => {
+    if (matchingGameState.cardSides.length !== 0) return;
     const userId = localStorage.getItem("userId");
     await fetch(
       `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${userId}/${myDecksId}/highScore.json`,
       { method: "PUT", body: JSON.stringify(time.toFixed(1)) }
     );
+
+    matchingGameDispatch({ type: "FINISHED_GAME" });
+    navigate("/myDecks");
   };
 
   useEffect(() => {
     if (
-      matchingGameState.stopwatch < Number(matchingGameState.deck?.highScore) &&
-      matchingGameState.cardSides.length === 0
+      !matchingGameState.deck?.highScore ||
+      (matchingGameState.stopwatch <
+        Number(matchingGameState.deck?.highScore) &&
+        matchingGameState.cardSides.length === 0)
     ) {
       putHighScore(matchingGameState.stopwatch);
-    }
-    if (matchingGameState.cardSides.length === 0) {
+    } else if (matchingGameState.cardSides.length === 0) {
       matchingGameDispatch({ type: "FINISHED_GAME" });
       navigate("/myDecks");
     }
