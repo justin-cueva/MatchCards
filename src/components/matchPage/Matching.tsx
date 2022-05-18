@@ -14,25 +14,24 @@ type Props = {
 const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
   const navigate = useNavigate();
 
-  const [firstClickedCard, setFirstClickedCard] = useState<any>(null);
-  const [secondClickedCard, setSecondClickedCard] = useState<any>(null);
+  useEffect(() => {
+    console.log(matchingGameState.firstClickedCard);
+    console.log(matchingGameState.secondClickedCard);
+  }, [matchingGameState.firstClickedCard, matchingGameState.secondClickedCard]);
 
   useEffect(() => {
     if (
-      firstClickedCard?.number === secondClickedCard?.number &&
-      secondClickedCard &&
-      firstClickedCard
+      matchingGameState.firstClickedCard?.number ===
+        matchingGameState.secondClickedCard?.number &&
+      matchingGameState.secondClickedCard &&
+      matchingGameState.firstClickedCard
     ) {
       matchingGameDispatch({
         type: "SUCCESS",
-        payload: firstClickedCard?.number,
+        payload: matchingGameState.firstClickedCard?.number,
       });
-      setFirstClickedCard(null);
-      setSecondClickedCard(null);
     }
-    // if ()
-    // if first clicked === the number of second clicked then remove the side cards from state
-  }, [secondClickedCard]);
+  }, [matchingGameState.secondClickedCard]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,14 +62,14 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
       <div className="matching__cards">
         {matchingGameState.cardSides.map((side, index) => {
           const clickedStyle =
-            side.number === firstClickedCard?.number &&
-            side.type === firstClickedCard?.type
+            side.number === matchingGameState.firstClickedCard?.number &&
+            side.type === matchingGameState.firstClickedCard?.type
               ? "clicked"
               : "";
 
           const secondClickedStyle =
-            side.number === secondClickedCard?.number &&
-            side.type === secondClickedCard?.type
+            side.number === matchingGameState.secondClickedCard?.number &&
+            side.type === matchingGameState.secondClickedCard?.type
               ? "clicked"
               : "";
 
@@ -80,28 +79,20 @@ const Matching = ({ matchingGameDispatch, matchingGameState }: Props) => {
               className={`matching__card  ${clickedStyle} ${secondClickedStyle}`}
               onClick={() => {
                 const clickedSameCart =
-                  firstClickedCard?.number === side.number &&
-                  firstClickedCard?.type === side.type;
+                  matchingGameState.firstClickedCard?.number === side.number &&
+                  matchingGameState.firstClickedCard?.type === side.type;
 
-                setFirstClickedCard((prevState: any) => {
-                  if (
-                    prevState?.number === side.number &&
-                    prevState?.type === side.type
-                  ) {
-                    console.log("RAN");
-                    return null;
-                  } else if (!prevState) {
-                    return { number: side.number, type: side.type };
-                  } else {
-                    return prevState;
-                  }
+                matchingGameDispatch({
+                  type: "FIRST_CARD",
+                  payload: { number: side.number, type: side.type },
                 });
 
-                if (firstClickedCard && !clickedSameCart)
-                  setSecondClickedCard(() => {
-                    console.log("SECOND");
-                    return { number: side.number, type: side.type };
+                if (matchingGameState.firstClickedCard && !clickedSameCart) {
+                  matchingGameDispatch({
+                    type: "SECOND_CARD",
+                    payload: { number: side.number, type: side.type },
                   });
+                }
               }}
             >
               {side.text}

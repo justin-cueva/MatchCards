@@ -1,20 +1,15 @@
 import { Deck } from "./authReducer";
 
-type Card = { definition: string; term: string; number: number };
-
 export type Actions =
   | { type: "CHANGE_GAME_STATUS"; payload: string }
   | { type: "GET_DECK"; payload: Deck }
   | { type: "SORT_CARD_SIDES"; payload: Card[] }
   | { type: "ADD_TIME" }
-  | { type: "SUCCESS"; payload: number };
+  | { type: "SUCCESS"; payload: number }
+  | { type: "FIRST_CARD"; payload: { number: number; type: string } }
+  | { type: "SECOND_CARD"; payload: { number: number; type: string } };
 
-export const defaultState = {
-  gameStatus: "PREGAME",
-  deck: null,
-  cardSides: [],
-  stopwatch: 0,
-};
+type Card = { definition: string; term: string; number: number };
 
 type CardSide = {
   type: string;
@@ -22,11 +17,24 @@ type CardSide = {
   number: number;
 };
 
+type ClickedCard = { number: number; type: string };
+
 export type StateType = {
   gameStatus: string;
   deck: Deck | null;
   cardSides: CardSide[];
   stopwatch: number;
+  firstClickedCard: ClickedCard | null;
+  secondClickedCard: ClickedCard | null;
+};
+
+export const defaultState = {
+  gameStatus: "PREGAME",
+  deck: null,
+  cardSides: [],
+  stopwatch: 0,
+  firstClickedCard: null,
+  secondClickedCard: null,
 };
 
 export const matchingGameReducer = (
@@ -34,12 +42,32 @@ export const matchingGameReducer = (
   action: Actions
 ) => {
   switch (action.type) {
+    case "SECOND_CARD":
+      return { ...state, secondClickedCard: action.payload };
+    case "FIRST_CARD":
+      // the case that we click the same card
+      if (
+        state.firstClickedCard?.number === action.payload.number &&
+        state.firstClickedCard?.type === action.payload.type
+      ) {
+        return { ...state, firstClickedCard: null };
+        // case we click a card for the first time
+      } else if (!state.firstClickedCard) {
+        return { ...state, firstClickedCard: action.payload };
+        // case we click second card
+      } else {
+        return state;
+      }
     case "SUCCESS":
       const newCardSides = state.cardSides.filter((cardSide) => {
         return cardSide.number !== action.payload;
       });
-
-      return { ...state, cardSides: newCardSides };
+      return {
+        ...state,
+        cardSides: newCardSides,
+        firstClickedCard: null,
+        secondClickedCard: null,
+      };
     case "ADD_TIME":
       return { ...state, stopwatch: state.stopwatch + 0.1 };
     case "SORT_CARD_SIDES":
