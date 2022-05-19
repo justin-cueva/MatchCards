@@ -31,20 +31,15 @@ export default (
   switch (action.type) {
     case "DELETE_DECK":
       const filteredDecks = state.myDecks.filter((deck) => {
-        console.log(deck.key);
-        console.log(action.payload.deckId);
         return deck.key !== action.payload.deckId;
       });
 
-      console.log(filteredDecks);
       return { ...state, myDecks: filteredDecks };
     case "GOT_DECKS":
       if (!action.payload) return state;
-      // console.log(Object.entries(action.payload));
       const x = Object.entries(action.payload).map((ent) => {
         return { ...ent[1], key: ent[0] };
       });
-      console.log(x);
 
       return { ...state, myDecks: x };
     case "LOGIN":

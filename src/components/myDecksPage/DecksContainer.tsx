@@ -34,6 +34,7 @@ const DecksContainer = (props: Props) => {
   );
 
   const deleteDeck = async (key: string) => {
+    console.log(key);
     authDispatch({
       type: "DELETE_DECK",
       payload: { deckId: key },
@@ -57,8 +58,8 @@ const DecksContainer = (props: Props) => {
               <div key={index} className="container--decks-of-a-date">
                 {deleteModalIsOpen && (
                   <DeleteDeckModal
-                    closeModal={() => setDeleteModalIsOpen(false)}
                     deleteDeck={() => deleteDeck(key)}
+                    closeModal={() => setDeleteModalIsOpen(false)}
                   />
                 )}
                 <label>
