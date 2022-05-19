@@ -1,5 +1,7 @@
 .page--matching {
-  height: 100vh;
+  max-width: 140rem;
+  margin: 0 auto;
+  height: 90vh;
   display: flex;
   flex-direction: column;
 }
@@ -133,5 +135,15 @@
   40%,
   60% {
     transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* 608 px */
+@media (min-width: 38em) {
+  .matching__stats .field label {
+    font-size: 1.6rem;
+  }
+  .matching__card {
+    font-size: 1.6rem;
   }
 }

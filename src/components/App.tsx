@@ -1,5 +1,5 @@
+import { createContext, useReducer, useEffect, Fragment } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { createContext, useReducer, useEffect } from "react";
 
 import authReducer, {
   defaultState as authDefaultState,
@@ -10,6 +10,7 @@ import MatchPage from "./matchPage/MatchPage";
 import ConfigDeckPage from "./createPage/CreatePage";
 import MyDecks from "./myDecksPage/MyDecks";
 import AuthPage from "./authPage/AuthPage";
+import DeleteDeckModal from "./myDecksPage/DeleteDeckModal";
 import "../styles/app.css";
 
 export const AuthContext = createContext<any>(null);
@@ -39,6 +40,15 @@ const App = () => {
             <Route
               path="/myDecks/edit/:myDecksId"
               element={<ConfigDeckPage />}
+            />
+            <Route
+              path="/myDecks/delete/:myDecksId"
+              element={
+                <Fragment>
+                  <MyDecks />
+                  <DeleteDeckModal />
+                </Fragment>
+              }
             />
             <Route path="/auth" element={<AuthPage />} />
           </Routes>

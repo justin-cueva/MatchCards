@@ -121,11 +121,8 @@ export const matchingGameReducer = (
         ...cardTermsArr,
       ]);
 
-      console.log(allHalfCardsShuffled);
-
       return { ...state, cardSides: allHalfCardsShuffled };
     case "GET_DECK":
-      console.log(action.payload);
       return { ...state, deck: action.payload };
     case "CHANGE_GAME_STATUS":
       return { ...state, gameStatus: action.payload };

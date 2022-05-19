@@ -80,7 +80,6 @@ const CreatePage = () => {
         method: method,
         body: JSON.stringify(configDeckState),
       });
-      console.log(configDeckState);
       configDeckDispatch({ type: "CREATE_DECK" });
       navigate("/myDecks");
     } catch (err: any) {

@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment, useReducer, useContext } from "react";
+import { useEffect, Fragment, useReducer, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../App";
@@ -35,7 +35,6 @@ const MatchPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(matchingGameState);
     if (matchingGameState.deck)
       matchingGameDispatch({
         type: "SORT_CARD_SIDES",

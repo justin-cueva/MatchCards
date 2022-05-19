@@ -2,7 +2,6 @@ import { useContext, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
 
-import DeleteDeckModal from "./DeleteDeckModal";
 import DeckActions from "./DeckActions";
 import Message from "../reusables/Message";
 import useSortAndFilter from "./useSortAndFilter";
@@ -33,17 +32,6 @@ const DecksContainer = (props: Props) => {
     />
   );
 
-  const deleteDeck = async (key: string) => {
-    authDispatch({
-      type: "DELETE_DECK",
-      payload: { deckId: key },
-    });
-    await fetch(
-      `https://match-cards-fc1b9-default-rtdb.firebaseio.com/${authState.userId}/${key}.json`,
-      { method: "DELETE" }
-    );
-  };
-
   return (
     <Fragment>
       <div className="container--my-decks">
@@ -55,12 +43,6 @@ const DecksContainer = (props: Props) => {
           deckOrder.map(({ cards, title, key, date }, index) => {
             return (
               <div key={index} className="container--decks-of-a-date">
-                {deleteModalIsOpen && (
-                  <DeleteDeckModal
-                    closeModal={() => setDeleteModalIsOpen(false)}
-                    deleteDeck={() => deleteDeck(key)}
-                  />
-                )}
                 <label>
                   <span>{date ? date : "March 20 2022"}</span>
                 </label>
