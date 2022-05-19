@@ -46,7 +46,10 @@ const DecksContainer = (props: Props) => {
                 <label>
                   <span>{date ? date : "March 20 2022"}</span>
                 </label>
-                <div className="my-decks__deck">
+                <div
+                  className="my-decks__deck"
+                  onClick={() => navigate(`/myDecks/match/${key}`)}
+                >
                   <div>
                     <span>{cards.length} terms</span>
                     <h4

@@ -11,8 +11,9 @@ const DeckActions = ({ setDeleteModalIsOpen, deckId }: Props) => {
   return (
     <div className="deck__actions">
       <button
-        onClick={() => {
+        onClick={(e) => {
           navigate(`/myDecks/delete/${deckId}`);
+          e.stopPropagation();
         }}
         type="button"
         className="delete"
@@ -20,7 +21,10 @@ const DeckActions = ({ setDeleteModalIsOpen, deckId }: Props) => {
         Delete
       </button>
       <button
-        onClick={() => navigate(`/myDecks/edit/${deckId}`)}
+        onClick={(e) => {
+          navigate(`/myDecks/edit/${deckId}`);
+          e.stopPropagation();
+        }}
         type="button"
         className="edit"
       >
