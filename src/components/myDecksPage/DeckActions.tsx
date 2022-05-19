@@ -12,8 +12,7 @@ const DeckActions = ({ setDeleteModalIsOpen, deckId }: Props) => {
     <div className="deck__actions">
       <button
         onClick={() => {
-          setDeleteModalIsOpen(true);
-          // deleteDeck(key);
+          navigate(`/myDecks/delete/${deckId}`);
         }}
         type="button"
         className="delete"
