@@ -12,8 +12,12 @@ const Home = ({ authState }: Props) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (pathname === "/" && !authState.isLoggedIn) navigate("/auth");
-    if (pathname === "/" && authState.isLoggedIn) navigate("/create");
+    const userId = localStorage.getItem("userId");
+
+    console.log(userId?.length);
+
+    if (pathname === "/" && !userId) navigate("/auth");
+    if (pathname === "/" && userId) navigate("/create");
   }, []);
 
   return <Fragment></Fragment>;
